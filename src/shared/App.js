@@ -1,6 +1,3 @@
-<<<<<<< HEAD
- import Login from "../pages/Login";
-=======
 import "../styles/App.css";
 import Container from "@mui/material/Container";
 import { Route, Link, Switch } from "react-router-dom";
@@ -12,14 +9,10 @@ import Detail from "../pages/Detail";
 import Fix from "../pages/Fix";
 import Signup from "../pages/Signup";
 import Not from "../pages/Not";
->>>>>>> 710fd5646ab37dc4fc9386848ea968a146d72bb3
 
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      <Login/>
-=======
       <Header></Header>
       <Container maxWidth="md">
         <Switch>
@@ -32,7 +25,6 @@ function App() {
           <Route component={() => <Not></Not>} />
         </Switch>
       </Container>
->>>>>>> 710fd5646ab37dc4fc9386848ea968a146d72bb3
     </div>
   );
 }
