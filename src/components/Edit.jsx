@@ -6,7 +6,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import CheckIcon from "@mui/icons-material/Check";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 const Edit = props => {
-  const { mode } = props;
+  const { mode, Fix } = props;
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   const [selected, setSelected] = React.useState(false);

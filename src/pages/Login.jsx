@@ -3,9 +3,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-
+import { useDispatch } from "react-redux";
 const Login = props => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
 
@@ -17,12 +18,10 @@ const Login = props => {
     setPwd(e.target.value);
   };
 
-  // const login = () => {
-  //   setCookie("user_id", id, 3);
-  //   setCookie("user_pwd", pwd, 3);
-  // };
+  const login = () => {
+    console.log(id, pwd);
+  };
 
-  const dispatch = useDispatch()
   return (
     <React.Fragment>
       <Wrap>
@@ -31,14 +30,14 @@ const Login = props => {
           required
           id="outlined-required"
           label="E-mail"
-          onChange={e => console.log(e.target.value)}
+          onChange={e => changeId()}
         />
         <TextField
           required
           type="password"
           id="outlined-required"
           label="PASSWORD"
-          onChange={e => console.log(e.target.value)}
+          onChange={e => changePwd()}
         />
         <div>
           <Button
