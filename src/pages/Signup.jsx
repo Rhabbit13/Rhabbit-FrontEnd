@@ -3,14 +3,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 
-const Signup = (props) => {
+const Signup = props => {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwd_check, setPwdCheck] = React.useState("");
   const [user_name, setUserName] = React.useState("");
   const [emailCheck, setEmailCheck] = React.useState(true);
 
-  const isEmail = (id) => {
+  const isEmail = id => {
     const emailRegex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
@@ -38,12 +38,13 @@ const Signup = (props) => {
   return (
     <React.Fragment>
       <Wrap>
-        <h1 type="heading">회원가입 페이지</h1>
+        <Title>회원가입</Title>
         <TextField
           required
           id="outlined-required"
           label="이메일로 가입하기"
-          onChange={(e) => {
+          color="error"
+          onChange={e => {
             setId(e.target.value);
             if (isEmail(id) === true) {
               setEmailCheck(true);
@@ -56,26 +57,29 @@ const Signup = (props) => {
           required
           id="outlined-required"
           label="User Name"
-          onChange={(e) => {
+          onChange={e => {
             setUserName(e.target.value);
           }}
+          color="error"
         />
         <TextField
           required
           id="outlined-required"
           label="비빌번호  "
-          onChange={(e) => {
+          onChange={e => {
             setPwd(e.target.value);
           }}
+          color="error"
         />
         <TextField
           required
           type="password"
           id="outlined-required"
           label="비밀번호 확인"
-          onChange={(e) => {
+          onChange={e => {
             setPwdCheck(e.target.value);
           }}
+          color="error"
         />
 
         <Button
@@ -85,7 +89,8 @@ const Signup = (props) => {
           onClick={() => {
             // isEmail();
             signup();
-          }}>
+          }}
+        >
           회원 가입하기
         </Button>
       </Wrap>
@@ -93,13 +98,20 @@ const Signup = (props) => {
   );
 };
 const Wrap = styled.div`
-  gap: 20px;
+  gap: 40px;
   display: flex;
   flex-direction: column;
   justify-items: center;
-  item-align: center;
   width: 80%;
-  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+const Title = styled.h2`
+  font-size: 34px;
+  text-align: center;
+  font-weight: bold;
 `;
 
 export default Signup;

@@ -10,7 +10,7 @@ import Edit from "../components/Edit";
 const FixPage = () => {
   const percentage = 30;
   const history = useHistory();
-  const mode = "disabled";
+  const mode = "";
   const Bar = styled.div`
     background-color: #de4640;
     width: ${percentage}%;
@@ -36,7 +36,7 @@ const FixPage = () => {
         <Bar></Bar>
       </Level>
       {Array.from(Array(5)).map((_, index) => (
-        <Edit key={index} mode={mode}></Edit>
+        <Edit key={index} mode={mode} Fix></Edit>
       ))}
       <Stack
         direction="row"

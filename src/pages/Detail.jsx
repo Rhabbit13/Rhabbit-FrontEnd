@@ -13,7 +13,7 @@ const Detail = () => {
   const percentage = 30;
   const { pid } = useParams();
   const history = useHistory();
-  const mode = "disabled";
+  const mode = "";
 
   const Bar = styled.div`
     background-color: #de4640;
