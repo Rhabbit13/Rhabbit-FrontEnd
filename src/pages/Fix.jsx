@@ -1,7 +1,7 @@
 import React from "react";
 
 const Fix = () => {
-  return null;
+  return <div>Fix</div>;
 };
 
 export default Fix;
