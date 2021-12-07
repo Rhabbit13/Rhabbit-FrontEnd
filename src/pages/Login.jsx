@@ -17,10 +17,12 @@ const Login = props => {
     setPwd(e.target.value);
   };
 
-  const login = () => {
-    // setCookie("user_id", id, 3);
-    // setCookie("user_pwd", pwd, 3);
-  };
+  // const login = () => {
+  //   setCookie("user_id", id, 3);
+  //   setCookie("user_pwd", pwd, 3);
+  // };
+
+  const dispatch = useDispatch()
   return (
     <React.Fragment>
       <Wrap>

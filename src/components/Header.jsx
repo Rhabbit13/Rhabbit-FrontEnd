@@ -4,6 +4,11 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+<<<<<<< HEAD
+// import IconButton from "@mui/material/IconButton";
+// import MenuIcon from "@mui/icons-material/Menu";
+=======
+>>>>>>> 17bbf9875af2f5832453da77d585b277eb3eeef4
 
 const Header = props => {
   return (
