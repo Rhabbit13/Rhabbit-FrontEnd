@@ -6,14 +6,10 @@ const CREATE = "my-app/widgets/CREATE";
 const UPDATE = "my-app/widgets/UPDATE";
 const REMOVE = "my-app/widgets/REMOVE";
 
-// Reducer
-export default function reducer(state = {}, action = {}) {
-  switch (action.type) {
-    // do reducer stuff
-    default:
-      return state;
-  }
-}
+const initialState = {
+  list: null,
+  is_login: false,
+};
 
 // Action Creators
 export function loadWidgets() {
@@ -30,4 +26,12 @@ export function updateWidget(widget) {
 
 export function removeWidget(widget) {
   return { type: REMOVE, widget };
+}
+// Reducer
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
+    // do reducer stuff
+    default:
+      return state;
+  }
 }
