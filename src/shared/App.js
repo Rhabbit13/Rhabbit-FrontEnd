@@ -1,6 +1,8 @@
 import "../styles/App.css";
 import Container from "@mui/material/Container";
 import { Route, Link, Switch } from "react-router-dom";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+
 import Header from "../components/Header";
 import Main from "../pages/Main";
 import Login from "../pages/Login";
