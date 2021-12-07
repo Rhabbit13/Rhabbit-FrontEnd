@@ -12,8 +12,8 @@ import Not from "../pages/Not";
 function App() {
   return (
     <div className="App">
-      <Header></Header>
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
+        <Header></Header>
         <Switch>
           <Route exact path="/" component={() => <Main></Main>} />
           <Route path="/login" component={() => <Login></Login>} />
