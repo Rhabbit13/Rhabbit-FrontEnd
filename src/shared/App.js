@@ -1,4 +1,3 @@
-import Login from "../pages/Login";
 import "../styles/App.css";
 import Container from "@mui/material/Container";
 import { Route, Link, Switch } from "react-router-dom";
@@ -13,20 +12,18 @@ import Not from "../pages/Not";
 function App() {
   return (
     <div className="App">
-       <Login/>
-       <Header></Header>
+      <Header></Header>
       <Container maxWidth="md">
         <Switch>
           <Route exact path="/" component={() => <Main></Main>} />
           <Route path="/login" component={() => <Login></Login>} />
           <Route path="/signup/:pui" component={() => <Signup></Signup>} />
           <Route path="/detail/:pui" component={() => <Detail></Detail>} />
-          <Route path="/detail/:pui" component={() => <Detail></Detail>} />
           <Route path="/fix/:pui" component={() => <Fix></Fix>} />
           <Route component={() => <Not></Not>} />
         </Switch>
       </Container>
-     </div>
+    </div>
   );
 }
 
