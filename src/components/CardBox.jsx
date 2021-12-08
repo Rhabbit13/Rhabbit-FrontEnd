@@ -5,45 +5,56 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useHistory } from "react-router";
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
+import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 
 const CardBox = props => {
-  const histiory = useHistory();
-  const { pui } = props;
-  const DetailRouter = () => {
-    histiory.push(`/detail/${pui}`);
-  };
+  const dispatch = useDispatch();
+  const { data, user } = props;
+  const todoList = useSelector(state => state.todo.todo);
+  const postTodo = todoList
+    .filter((x, i) => {
+      return x.pid === data.id;
+    })
+    .filter((y, i) => {
+      return i < 2;
+    });
   return (
     <Card
       sx={{ minWidth: "50%" }}
       style={{ border: "1px solid #eee", cursor: "pointer" }}
-      onClick={DetailRouter}
     >
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          닉네임
-        </Typography>
+      <CardContent sx={{ padding: "16px 20px !important", height: "120px" }}>
+        <FlexBox>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            {user.nickname}
+          </Typography>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            {data.date}
+          </Typography>
+        </FlexBox>
         <Typography
-          style={{ marginBottom: "10px" }}
+          style={{ marginBottom: "6px" }}
           variant="h5"
           component="div"
         >
-          80%
+          {data.rate} %
         </Typography>
-        <Typography variant="body2">하루 10km 달리기</Typography>
-        <Typography variant="body2">강아지 산책 시키기</Typography>
+        {postTodo.map((_, index) => {
+          return (
+            <Typography key={index} variant="body2">
+              {_.text}
+            </Typography>
+          );
+        })}
         ...
       </CardContent>
     </Card>
   );
 };
-
+const FlexBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 export default CardBox;

@@ -6,7 +6,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import CheckIcon from "@mui/icons-material/Check";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
 const Edit = props => {
-  const { mode, Fix } = props;
+  const { disabled, data } = props;
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   const [selected, setSelected] = React.useState(false);
@@ -14,18 +14,18 @@ const Edit = props => {
   return (
     <EditBox>
       <TextField
-        disabled={mode}
+        disabled={disabled}
         style={{
           width: "100%",
         }}
-        label="해야하는 일를 작성해 주세요"
+        label={data.text ? data.text : "해야하는 일를 작성해 주세요"}
         variant="outlined"
         size="Normal"
         color="error"
       />
 
       <ToggleButton
-        disabled={mode}
+        disabled={disabled}
         color="error"
         style={{ border: "0px", backgroundColor: "#fff" }}
         sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
@@ -38,7 +38,7 @@ const Edit = props => {
         <BookmarkAddedIcon />
       </ToggleButton>
       <Checkbox
-        disabled={mode}
+        disabled={disabled}
         {...label}
         color="error"
         defaultChecked

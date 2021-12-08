@@ -6,15 +6,20 @@ import Edit from "../components/Edit";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import Header from "../components/Header";
+import { history } from "../redux/configureStore";
+import { useSelector } from "react-redux";
 
 const Detail = () => {
   const percentage = 30;
   const { pid } = useParams();
-  const history = useHistory();
-  const mode = "";
-
+  const [disabled, setDisabled] = React.useState(false);
+  const firstPost = useSelector(state => state.todo.post)[0];
+  const todo = useSelector(state => state.todo.todo);
+  const isTodo = todo.filter(x => {
+    return x.pid === pid;
+  });
   const Bar = styled.div`
     background-color: #de4640;
     width: ${percentage}%;
@@ -24,9 +29,8 @@ const Detail = () => {
     top: 0px;
   `;
   const GoFixPage = () => {
-    history.push(`/fix/${pid}`);
+    alert("아직 수정 상태가 아닙니다.");
   };
-
   return (
     <Grid
       container
@@ -43,8 +47,8 @@ const Detail = () => {
         <Percentage>{percentage}%</Percentage>
         <Bar></Bar>
       </Level>
-      {Array.from(Array(5)).map((_, index) => (
-        <Edit key={index} mode={mode}></Edit>
+      {isTodo.map((_, index) => (
+        <Edit key={index} disabled={disabled} data={_}></Edit>
       ))}
       <Stack
         direction="row"
@@ -59,12 +63,12 @@ const Detail = () => {
         }}
       >
         <Button
-          disabled={mode}
+          disabled={disabled}
           variant="contained"
           style={{ width: "50%", backgroundColor: "#999", height: "40px" }}
           onClick={GoFixPage}
         >
-          {mode !== "disabled" ? "수정페이지 이동" : "오늘를 달려 주세요"}
+          {disabled ? "수정페이지 이동" : "오늘를 달려 주세요"}
         </Button>
 
         <Button
