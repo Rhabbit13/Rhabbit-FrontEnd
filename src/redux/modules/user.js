@@ -9,17 +9,17 @@ const SET_USER = "SET_USER";
 
  const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
-const setUser = createAction(SET_USER, (user) => ({ user }));
+const setUser = createAction(SET_USER, (user, pwd) => ({ user, pwd }));
 
  const initialState = {
   user: null,
   is_login: false,
 };
 
- const loginAction = (user) => {
+ const loginAction = (userId, userPwd) => {
   return function (dispatch, getState, { history }) {
-    console.log(history);
-    dispatch(setUser(user));
+    console.log(userId, userPwd);
+    dispatch(setUser(userId, userPwd));
     history.push("/");
   };
 };
@@ -29,7 +29,7 @@ const setUser = createAction(SET_USER, (user) => ({ user }));
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         setCookie("is_login", "success");
-        draft.user = action.payload.user;
+        draft.user = { id: action.payload.user, pwd: action.payload.pwd };
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>

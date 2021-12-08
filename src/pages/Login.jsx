@@ -5,45 +5,46 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { setCookie } from "../shared/Cookie";
+import { actionCreators as userActions } from "../redux/modules/user";
 
-
-
-
-const Login = props => {
+const Login = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
 
-  const changeId = e => {
+  console.log(id, pwd);
+
+  const changeId = (e) => {
     setId(e.target.value);
   };
 
-  const changePwd = e => {
+  const changePwd = (e) => {
     setPwd(e.target.value);
   };
 
   const login = () => {
-setCookie(id);
-setCookie(pwd); 
-};
+    dispatch(userActions.loginAction(id, pwd));
+  };
 
   return (
     <React.Fragment>
       <Wrap>
         <Title>로그인</Title>
         <TextField
+          value={id}
           required
           id="outlined-required"
           label="E-mail"
-          onChange={e => changeId()}
+          onChange={(e) => changeId(e)}
         />
         <TextField
+          value={pwd}
           required
           type="password"
           id="outlined-required"
           label="PASSWORD"
-          onChange={e => changePwd()}
+          onChange={(e) => changePwd(e)}
         />
         <div>
           <Button
@@ -53,8 +54,7 @@ setCookie(pwd);
             color="error"
             onClick={() => {
               login();
-            }}
-          >
+            }}>
             LOG IN
           </Button>
           <Button
@@ -64,8 +64,7 @@ setCookie(pwd);
             color="error"
             onClick={() => {
               history.push("/signup");
-            }}
-          >
+            }}>
             Sign Up
           </Button>
         </div>

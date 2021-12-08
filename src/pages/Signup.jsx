@@ -2,15 +2,16 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 
-const Signup = props => {
+const Signup = (props) => {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
   const [pwd_check, setPwdCheck] = React.useState("");
   const [user_name, setUserName] = React.useState("");
   const [emailCheck, setEmailCheck] = React.useState(true);
 
-  const isEmail = id => {
+  const isEmail = (id) => {
     const emailRegex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
@@ -33,8 +34,13 @@ const Signup = props => {
       return alert("비밀번호를 확인하세요.");
     }
 
-    // dispatch(userActions.signupFB(id, pwd, user_name));
-  };
+   };
+  const history = useHistory();
+  // const goLogin = () => {
+  //   if (signup() === true) {
+  //     return history.push("/");
+  //   }
+  // };
   return (
     <React.Fragment>
       <Wrap>
@@ -44,7 +50,7 @@ const Signup = props => {
           id="outlined-required"
           label="이메일로 가입하기"
           color="error"
-          onChange={e => {
+          onChange={(e) => {
             setId(e.target.value);
             if (isEmail(id) === true) {
               setEmailCheck(true);
@@ -57,7 +63,7 @@ const Signup = props => {
           required
           id="outlined-required"
           label="User Name"
-          onChange={e => {
+          onChange={(e) => {
             setUserName(e.target.value);
           }}
           color="error"
@@ -66,7 +72,7 @@ const Signup = props => {
           required
           id="outlined-required"
           label="비빌번호  "
-          onChange={e => {
+          onChange={(e) => {
             setPwd(e.target.value);
           }}
           color="error"
@@ -76,7 +82,7 @@ const Signup = props => {
           type="password"
           id="outlined-required"
           label="비밀번호 확인"
-          onChange={e => {
+          onChange={(e) => {
             setPwdCheck(e.target.value);
           }}
           color="error"
@@ -87,10 +93,9 @@ const Signup = props => {
           disableElevation
           color="error"
           onClick={() => {
-            // isEmail();
             signup();
-          }}
-        >
+           history.push('/')
+          }}>
           회원 가입하기
         </Button>
       </Wrap>

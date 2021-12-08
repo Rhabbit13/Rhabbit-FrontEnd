@@ -9,8 +9,7 @@ import { useHistory } from "react-router";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-// import { getCookie, deleteCookie } from "../shared/Cookie";
-
+ 
 
 const Header = props => {
 
