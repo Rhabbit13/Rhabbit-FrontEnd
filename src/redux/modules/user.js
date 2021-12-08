@@ -29,7 +29,7 @@ const getUserDB = () => {
     axios
       .get("http://", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: ` ${token}`,
         },
       })
       .then((response) => {
@@ -70,7 +70,7 @@ const loginDB = (username, password) => {
   };
 };
 
-const signupDB = (username, password, username) => {
+const signupDB = (username, password, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
       .post("http://", {
