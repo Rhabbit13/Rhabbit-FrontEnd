@@ -3,6 +3,9 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { deleteCookie } from "../shared/Cookie";
+import { useHistory } from "react-router";
+
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
@@ -10,6 +13,8 @@ import { Link } from "react-router-dom";
 
 
 const Header = props => {
+
+  const history = useHistory()
   return (
     <Box
       sx={{
@@ -24,9 +29,11 @@ const Header = props => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Rhabbit
           </Typography>
-          <Link to="/login" 
-          // onClick={()=>{deleteCookie('login')}}
-          >Login</Link> // logout으로 변경?
+          <Button  onClick={()=>{
+            deleteCookie('login')
+            history.push('/login') 
+            }}>
+          Logout </Button> 
         </Toolbar>
       </AppBar>
     </Box>
