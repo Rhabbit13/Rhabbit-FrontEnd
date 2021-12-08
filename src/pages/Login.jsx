@@ -2,17 +2,15 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
-import { setCookie } from "../shared/Cookie";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 const Login = (props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
-
+ 
   console.log(id, pwd);
 
   const changeId = (e) => {
@@ -24,7 +22,7 @@ const Login = (props) => {
   };
 
   const login = () => {
-    dispatch(userActions.loginAction(id, pwd));
+    dispatch(userActions.loginDB(id, pwd));
   };
 
   return (

@@ -2,14 +2,18 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
-import { useHistory } from "react-router";
+import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Signup = (props) => {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
-  const [pwd_check, setPwdCheck] = React.useState("");
-  const [user_name, setUserName] = React.useState("");
+  const [pwdCheck, setPwdCheck] = React.useState("");
+  const [userName, setUserName] = React.useState("");
   const [emailCheck, setEmailCheck] = React.useState(true);
+
+  const dispatch = useDispatch();
 
   const isEmail = (id) => {
     const emailRegex =
@@ -19,28 +23,22 @@ const Signup = (props) => {
   };
 
   const signup = () => {
-    console.log(isEmail(id));
+     dispatch(userActions.signupDB(id, pwd, userName));
 
     if (isEmail(id) === false) {
       setEmailCheck(false);
       return;
     }
 
-    if (id === "" || pwd === "" || user_name === "") {
+    if (id === "" || pwd === "" || userName === "") {
       return alert("E-mail 혹은 User Name을 입력하세요");
     }
 
-    if (pwd !== pwd_check) {
+    if (pwd !== pwdCheck) {
       return alert("비밀번호를 확인하세요.");
     }
-
-   };
-  const history = useHistory();
-  // const goLogin = () => {
-  //   if (signup() === true) {
-  //     return history.push("/");
-  //   }
-  // };
+  };
+  
   return (
     <React.Fragment>
       <Wrap>
@@ -94,7 +92,7 @@ const Signup = (props) => {
           color="error"
           onClick={() => {
             signup();
-           history.push('/')
+            history.push("/");
           }}>
           회원 가입하기
         </Button>
