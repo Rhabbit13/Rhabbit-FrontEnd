@@ -10,7 +10,7 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
- 
+
   console.log(id, pwd);
 
   const changeId = (e) => {
@@ -22,6 +22,10 @@ const Login = (props) => {
   };
 
   const login = () => {
+    if (id === "" || pwd === "") {
+      window.alert("아이디 혹은 비밀번호를 입력하여 주세요.");
+      return;
+    }
     dispatch(userActions.loginDB(id, pwd));
   };
 

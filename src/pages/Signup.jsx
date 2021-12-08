@@ -23,8 +23,6 @@ const Signup = (props) => {
   };
 
   const signup = () => {
-     dispatch(userActions.signupDB(id, pwd, userName));
-
     if (isEmail(id) === false) {
       setEmailCheck(false);
       return;
@@ -38,7 +36,8 @@ const Signup = (props) => {
       return alert("비밀번호를 확인하세요.");
     }
   };
-  
+  dispatch(userActions.signupDB(id, pwd, userName));
+
   return (
     <React.Fragment>
       <Wrap>
@@ -91,9 +90,8 @@ const Signup = (props) => {
           disableElevation
           color="error"
           onClick={() => {
-            signup();
-            history.push("/");
-          }}>
+            signup()
+           }}>
           회원 가입하기
         </Button>
       </Wrap>
