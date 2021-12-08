@@ -10,9 +10,7 @@ const Main = props => {
   //임시 user 정보 후에 jws 정보를 가지고 서버에 요청해 postlist를 가지고 오게 한다.
   const user = useSelector(state => state.todo.user);
   const post = useSelector(state => state.todo.post);
-  post.sort((a, b) => {
-    return b.date - a.date;
-  });
+  React.useEffect(() => {}, []);
   return (
     <MainPage>
       <Header></Header>

@@ -5,44 +5,103 @@ import Checkbox from "@mui/material/Checkbox";
 import ToggleButton from "@mui/material/ToggleButton";
 import CheckIcon from "@mui/icons-material/Check";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import { useDispatch } from "react-redux";
+import { actionCreators as todoAction } from "../redux/modules/todo";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
+
 const Edit = props => {
   const { disabled, data } = props;
-  const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
+  const dispatch = useDispatch();
   const [selected, setSelected] = React.useState(false);
+  const [fixed, setFixed] = React.useState(false);
+  const [checked, setChecked] = React.useState(data.checked);
+  const textRef = React.useRef("");
 
+  const DelectBtn = e => {
+    dispatch(todoAction.todo_delect(data.id));
+  };
+
+  const handleChange = event => {
+    setChecked(!checked);
+    dispatch(todoAction.todo_check(data.id, !checked));
+  };
+  const DailyChange = e => {
+    dispatch(todoAction.todo_deily(data.id, !selected));
+  };
+  const ChangeText = e => {
+    if (fixed !== false && textRef.current.value) {
+      dispatch(todoAction.todo_fix(data.id, textRef.current.value));
+    } else {
+      console.log("응 아니야");
+    }
+  };
+  const sxx = { "& .MuiSvgIcon-root": { fontSize: 25 } };
   return (
     <EditBox>
+      <FelxBox>
+        <ToggleButton
+          disabled={disabled}
+          color="error"
+          style={{ border: "0px", backgroundColor: "#fff" }}
+          sx={sxx}
+          value="check"
+          size="small"
+          selected={fixed}
+          onChange={() => {
+            setFixed(!fixed);
+            ChangeText();
+          }}
+        >
+          <AutoFixHighIcon />
+        </ToggleButton>
+        <ToggleButton
+          disabled={disabled}
+          color="error"
+          style={{ border: "0px", backgroundColor: "#fff" }}
+          sx={sxx}
+          size="small"
+          value="check"
+          selected={data.daily}
+          onChange={async e => {
+            DailyChange(e);
+            setSelected(!selected);
+          }}
+        >
+          <BookmarkAddedIcon />
+        </ToggleButton>
+        <IconButton
+          disabled={disabled}
+          style={{ border: "0px", backgroundColor: "#fff" }}
+          sx={sxx}
+          size="small"
+          onClick={() => {
+            DelectBtn();
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </FelxBox>
       <TextField
-        disabled={disabled}
+        inputRef={textRef}
+        disabled={!fixed}
         style={{
-          width: "100%",
+          width: "90%",
         }}
-        label={data.text ? data.text : "해야하는 일를 작성해 주세요"}
+        label="할일"
         variant="outlined"
-        size="Normal"
+        size="Nomall"
         color="error"
+        defaultValue={data.text}
       />
-
-      <ToggleButton
-        disabled={disabled}
-        color="error"
-        style={{ border: "0px", backgroundColor: "#fff" }}
-        sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
-        value="check"
-        selected={selected}
-        onChange={() => {
-          setSelected(!selected);
-        }}
-      >
-        <BookmarkAddedIcon />
-      </ToggleButton>
       <Checkbox
-        disabled={disabled}
-        {...label}
+        checked={checked}
+        onChange={handleChange}
+        inputProps={{ "aria-label": "controlled" }}
         color="error"
-        defaultChecked
-        sx={{ "& .MuiSvgIcon-root": { fontSize: 30 } }}
+        sx={{ "& .MuiSvgIcon-root": { fontSize: 35 } }}
+        disabled={disabled}
       />
     </EditBox>
   );
@@ -51,6 +110,13 @@ const EditBox = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+const FelxBox = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
 `;
 export default Edit;

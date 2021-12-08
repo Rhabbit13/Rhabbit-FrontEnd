@@ -1,10 +1,11 @@
-// widgets.js
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
 
 // Actions
-const LOAD = "my-app/widgets/LOAD";
-const CREATE = "my-app/widgets/CREATE";
-const UPDATE = "my-app/widgets/UPDATE";
-const REMOVE = "my-app/widgets/REMOVE";
+const TODOCHECK = "TODOCHECK";
+const TODODEILY = "TODODEILY";
+const TODODELECT = "TODODELECT";
+const TODOFIX = "TODOFIX";
 
 const initialState = {
   user: { id: "asq12q@1Was3ddas", nickname: "올루션", achievementrate: 30 },
@@ -16,156 +17,73 @@ const initialState = {
       rate: 90,
     },
     {
-      id: "hnmwdasdefsd2qw",
+      id: "hj4fgn33dacefdqw",
       uid: "asq12q@1Was3ddas",
       date: "1206",
-      rate: 70,
+      rate: 80,
     },
     {
-      id: "hj12fghda123dqw",
+      id: "hj4fgn33dacefdqw",
       uid: "asq12q@1Was3ddas",
-      date: "1205",
-      rate: 100,
-    },
-    {
-      id: "hjk2fasdghn1wefsdqw",
-      uid: "asq12q@1Was3ddas",
-      date: "1204",
-      rate: 30,
-    },
-    {
-      id: "hjk2mfadawefsqw",
-      uid: "asq12q@1Was3ddas",
-      date: "1203",
-      rate: 50,
-    },
-    {
-      id: "hjk2ghnmfadabnqw",
-      uid: "asq12q@1Was3ddas",
-      date: "1202",
-      rate: 50,
-    },
-    {
-      id: "h44jkda123bnqw",
-      uid: "asq12q@1Was3ddas",
-      date: "1201",
-      rate: 0,
-    },
-    {
-      id: "hjk234fs22dnbnq111w",
-      uid: "asq12q@1Was3ddas",
-      date: "1131",
-      rate: 0,
+      date: "1208",
+      rate: 80,
     },
   ],
   todo: [
     {
-      pid: "hnmwdasdefsd2qw",
-      id: "12q@1Was113333Ue3dd",
-      text: "10시 기상33",
-      checked: true,
-      daily: false,
-    },
-    {
       pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@1Was11as3333Ue3dd",
-      text: "10시 기상111",
-      checked: true,
-      daily: false,
-    },
-    {
-      pid: "hnmwdasdefsd2qw",
-      id: "12q@1Was11fg3333Ue3dd",
-      text: "11시 잠자222기",
-      checked: true,
-      daily: false,
-    },
-    {
-      pid: "hnmwdasdefsd2qw",
-      id: "12q@1Was1133ad33Ue3dd",
-      text: "10시 기상4444",
-      checked: true,
-      daily: false,
-    },
-    //1206
-    {
-      pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@1Was1133dd33Ue3dd",
+      id: "1122q@1Was113333Ue3dd",
       text: "10시 기상",
-      checked: true,
+      checked: false,
+      daily: true,
+    },
+    {
+      pid: "hjk234fghnmwasdefsdqw",
+      id: "12q@1Wa333s113333Ue3dd",
+      text: "11시 고양이",
+      checked: false,
       daily: false,
     },
     {
       pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상",
-      checked: true,
+      id: "12q@4aas",
+      text: "12시 사자",
+      checked: false,
       daily: false,
     },
     {
       pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상",
-      checked: true,
-      daily: false,
-    },
-    {
-      pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상",
-      checked: true,
+      id: "12q@144Ue3dd",
+      text: "13시 자장가",
+      checked: false,
       daily: false,
     },
 
-    //1205
     {
-      pid: "hj12fghda123dqw",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상",
+      pid: "hj4fgn33dacefdqw",
+      id: "12q@13hh55Ue73dd",
+      text: "15시 짜장면",
       checked: true,
       daily: false,
     },
     {
-      pid: "hj12fghda123dqw",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상",
-      checked: true,
-      daily: false,
-    },
-    //1204
-    {
-      pid: "hjk2fasdghn1wefsdqw",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 강아지 산책",
+      pid: "hj4fgn33dacefdqw",
+      id: "13313hhh3Ue3d5d",
+      text: "14시 짬뽕",
       checked: true,
       daily: false,
     },
     {
-      pid: "hjk2fasdghn1wefsdqw",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "6시 기상",
-      checked: true,
-      daily: false,
-    },
-    //1203
-    {
-      pid: "hjk234fs22dnbnq111w",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상",
+      pid: "hjk234fghnmwasdefsdqw",
+      id: "11111tttttsssdd",
+      text: "12시 탕수육",
       checked: true,
       daily: false,
     },
     {
-      pid: "hjk234fs22dnbnq111w",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상1",
-      checked: true,
-      daily: false,
-    },
-    {
-      pid: "hjk234fs22dnbnq111w",
-      id: "12q@1Was1133dd33Ue3dd",
-      text: "10시 기상2",
+      pid: "hj4fgn33dacefdqw",
+      id: "122iii13ooohhh3Ue3dd",
+      text: "22시 떡복이",
       checked: true,
       daily: false,
     },
@@ -174,26 +92,68 @@ const initialState = {
 };
 
 // Action Creators
-export function loadWidgets() {
-  return { type: LOAD };
-}
+const todo_check = createAction(TODOCHECK, (id, checked) => ({
+  id,
+  checked,
+}));
+const todo_deily = createAction(TODODEILY, (id, daily) => ({
+  id,
+  daily,
+}));
+const todo_delect = createAction(TODODELECT, id => ({
+  id,
+}));
+const todo_fix = createAction(TODOFIX, (id, text) => ({
+  id,
+  text,
+}));
 
-export function createWidget(widget) {
-  return { type: CREATE, widget };
-}
-
-export function updateWidget(widget) {
-  return { type: UPDATE, widget };
-}
-
-export function removeWidget(widget) {
-  return { type: REMOVE, widget };
-}
 // Reducer
-export default function reducer(state = initialState, action = {}) {
-  switch (action.type) {
-    // do reducer stuff
-    default:
-      return state;
-  }
-}
+export default handleActions(
+  {
+    [TODOCHECK]: (state, action) =>
+      produce(state, draft => {
+        const { id, checked } = action.payload;
+        const is_todo_num = state.todo.findIndex(x => {
+          return x.id === id ? true : false;
+        });
+        draft.todo[is_todo_num].checked = checked;
+      }),
+    [TODODEILY]: (state, action) =>
+      produce(state, draft => {
+        const { id, daily } = action.payload;
+        const is_todo_nums = state.todo.findIndex(x => {
+          return x.id === id ? true : false;
+        });
+        draft.todo[is_todo_nums].daily = daily;
+      }),
+    [TODODELECT]: (state, action) =>
+      produce(state, draft => {
+        const { id } = action.payload;
+        console.log(id);
+        const newTodo = state.todo.filter(x => {
+          return x.id !== id;
+        });
+        draft.todo = newTodo;
+      }),
+    [TODOFIX]: (state, action) =>
+      produce(state, draft => {
+        const { id, text } = action.payload;
+        console.log(id, text);
+        const is_todo_nums = state.todo.findIndex(x => {
+          return x.id === id ? true : false;
+        });
+        draft.todo[is_todo_nums].text = text;
+      }),
+  },
+  initialState
+);
+
+const actionCreators = {
+  todo_check,
+  todo_deily,
+  todo_delect,
+  todo_fix,
+};
+
+export { actionCreators };
