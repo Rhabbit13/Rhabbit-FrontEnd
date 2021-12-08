@@ -4,6 +4,11 @@ import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
+import { setCookie } from "../shared/Cookie";
+
+
+
+
 const Login = props => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -19,8 +24,9 @@ const Login = props => {
   };
 
   const login = () => {
-    console.log(id, pwd);
-  };
+setCookie(id);
+setCookie(pwd); 
+};
 
   return (
     <React.Fragment>

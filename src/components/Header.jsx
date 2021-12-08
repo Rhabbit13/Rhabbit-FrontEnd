@@ -6,6 +6,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
+// import { getCookie, deleteCookie } from "../shared/Cookie";
+
+
 const Header = props => {
   return (
     <Box
@@ -21,7 +24,9 @@ const Header = props => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Rhabbit
           </Typography>
-          <Link to="/login">Login</Link>
+          <Link to="/login" 
+          // onClick={()=>{deleteCookie('login')}}
+          >Login</Link> // logout으로 변경?
         </Toolbar>
       </AppBar>
     </Box>
