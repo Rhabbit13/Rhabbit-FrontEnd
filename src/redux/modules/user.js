@@ -27,7 +27,7 @@ const getUserDB = () => {
     axios
       .get("http:/18.224.37.224/", {
         headers: {
-          Authorization: ` ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
@@ -56,7 +56,7 @@ const loginDB = (username, password) => {
             is_login: true,
           })
         );
-        window.localStorage.setItem(
+        setCookie(
           "token",
           JSON.stringify(response.data.token)
         );
@@ -71,7 +71,7 @@ const loginDB = (username, password) => {
 const signupDB = (username, password, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
-      .post("http://18.224.37.224/api/user/signup", {
+      .post("http://18.224.37.224/user/signup", {
         nickname: nickname,
         username: username,
         password: password,
@@ -117,6 +117,7 @@ export default handleActions(
         draft.nickname = action.payload.user.nickname;
         draft.username = action.payload.user.username;
         draft.password = action.payload.user.password;
+        
       }),
   },
   user_initial
