@@ -22,7 +22,7 @@ const user_initial = {
 const loginDB = (username, password) => {
   return function (dispatch, getState, { history }) {
     axios
-      .post("http://18.224.37.224/user/login ", {
+      .post("http://15.164.215.165/user/login ", {
         username: username,
         password: password,
       })
@@ -39,6 +39,7 @@ const loginDB = (username, password) => {
       })
       .catch(error => {
         console.log("Login Error", error);
+        window.location.reload();
       });
   };
 };
@@ -46,7 +47,7 @@ const loginDB = (username, password) => {
 const signupDB = (username, password, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
-      .post("http://18.224.37.224/user/signup", {
+      .post("http://15.164.215.165/user/signup", {
         nickname: nickname,
         username: username,
         password: password,
@@ -85,6 +86,7 @@ export default handleActions(
       produce(state, draft => {
         draft.nickname = action.payload.user.nickname;
         draft.username = action.payload.user.username;
+
         draft.is_login = true;
       }),
     [SET_USER]: (state, action) =>

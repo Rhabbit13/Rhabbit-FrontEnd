@@ -36,13 +36,14 @@ const Login = (props) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="sm">
+      <Container maxWidth="70%">
         <Box
           sx={{
+            boxShadow: "8px 8px 5px #999999",
             bgcolor: "#EEE",
-            width: "60vh",
+            width: "100%",
             margin: " 30px",
-            height: "90vh",
+            height: "auto",
             borderRadius: "10px",
             display: "flex",
             flexDirection: "column",
@@ -50,7 +51,7 @@ const Login = (props) => {
             alignItems: "center",
             padding: "20px",
           }}>
-          <Success>성공!!</Success>
+          <Success>SUCCESS</Success>
           <Wrap>
             <img src="/static/habbit.png" alt="로고" />
 
@@ -127,24 +128,24 @@ const boxFade = keyframes`
   }
   50%{
       background-position: left bottom;
-      transform: scale( 1.5 );
+      transform: scale( 0.8 );
   }
   100%{
       background-position: right bottom;
-      transform: scale( 2.0 );
+      transform: scale( 1);
 
   }
 `;
 const Success = styled.p`
-  font-size: 40px;
-  font-weight: 300;
+  font-size: 30px;
+  font-weight: 250;
   font-family: "jua", sans-serif;
-  color: red;
+  color: darkblue;
   position: absolute;
-  top: 100px;
-  left: 450px;
+  top: 20px;
+  left: 360px;
   animation: ${boxFade} 1s 1s infinite linear alternate;
-  margin-right: 10px;
+  margin-right: 20px;
 `;
 
 export default Login;
