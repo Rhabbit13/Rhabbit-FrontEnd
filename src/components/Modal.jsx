@@ -21,19 +21,17 @@ const style = {
 
 export default function BasicModal(props) {
   const [open, setOpen] = React.useState(false);
-  console.log(props.pid);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const Tref = React.useRef("");
   const AddList = () => {
     const todoText = {
-      id: "asdascvq12123das",
       text: Tref.current.value,
       checked: false,
       daily: false,
     };
-    dispatch(todoAction.todo_add(props.pid, todoText));
+    dispatch(todoAction.todoAddDB(props.pid, todoText));
   };
   return (
     <>
@@ -41,6 +39,7 @@ export default function BasicModal(props) {
         variant="contained"
         style={{ width: "50%", backgroundColor: "#999", height: "40px" }}
         onClick={handleOpen}
+        disabled={props.disabled}
       >
         Todo 추가
       </Button>

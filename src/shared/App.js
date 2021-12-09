@@ -17,7 +17,7 @@ function App() {
         style={{ position: "relative", height: "100vh" }}
       >
         <Switch>
-          <Route exact path="/main/:id" component={() => <Main></Main>} />
+          <Route exact path="/" component={() => <Main></Main>} />
           <Route path="/login" component={() => <Login></Login>} />
           <Route path="/signup" component={() => <Signup></Signup>} />
           <Route path="/detail/:pid" component={() => <Detail></Detail>} />

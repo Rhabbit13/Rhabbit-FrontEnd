@@ -18,9 +18,10 @@ const Edit = props => {
   const [selected, setSelected] = React.useState(false);
   const [fixed, setFixed] = React.useState(false);
   const [checked, setChecked] = React.useState(data.checked);
+  const [typing, setTyping] = React.useState(data.text);
   const textRef = React.useRef("");
   const DelectBtn = e => {
-    dispatch(todoAction.todo_delect(data.id));
+    dispatch(todoAction.todo_delect(data.id, pid));
   };
 
   const handleChange = event => {
@@ -56,6 +57,9 @@ const Edit = props => {
     }
   };
   const sxx = { "& .MuiSvgIcon-root": { fontSize: 25 } };
+  const ChangeEvent = e => {
+    setTyping(e.target.value);
+  };
   return (
     <EditBox>
       <FelxBox>
@@ -111,7 +115,8 @@ const Edit = props => {
         variant="outlined"
         size="Nomall"
         color="error"
-        defaultValue={data.text}
+        value={typing}
+        onChange={ChangeEvent}
       />
       <Checkbox
         checked={checked}

@@ -2,7 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 import axios from "axios";
-import getToken from "../../shared/Token";
 
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
@@ -20,27 +19,6 @@ const user_initial = {
   password: "123",
 };
 
-const getUserDB = () => {
-  return function (dispatch, getState, { history }) {
-    const token = getToken();
-
-    axios
-      .get("http:/18.224.37.224/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        dispatch(
-          getUser({
-            nickname: response.data.nickname,
-            id: response.data.id,
-          })
-        );
-      });
-  };
-};
-
 const loginDB = (username, password) => {
   return function (dispatch, getState, { history }) {
     axios
@@ -56,10 +34,7 @@ const loginDB = (username, password) => {
             is_login: true,
           })
         );
-        setCookie(
-          "token",
-          JSON.stringify(response.data.token)
-        );
+        setCookie("token", JSON.stringify(response.data.token));
         history.push("/");
       })
       .catch(error => {
@@ -117,7 +92,6 @@ export default handleActions(
         draft.nickname = action.payload.user.nickname;
         draft.username = action.payload.user.username;
         draft.password = action.payload.user.password;
-        
       }),
   },
   user_initial
@@ -126,7 +100,6 @@ export default handleActions(
 const actionCreators = {
   signupDB,
   loginDB,
-  getUserDB,
   logOut,
 };
 

@@ -1,8 +1,12 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import {
+  PostAddTodoList,
+  PutFixTodoList,
+  DelectTodoList,
+} from "../../shared/todocard";
 
 // Actions
-const TODOCHECK = "TODOCHECK";
 const TODOADD = "TODOADD";
 const TODODELECT = "TODODELECT";
 const TODOFIX = "TODOFIX";
@@ -106,8 +110,9 @@ const initialState = {
 
 // Action Creators
 
-const todo_delect = createAction(TODODELECT, id => ({
+const todo_delect = createAction(TODODELECT, (id, pid) => ({
   id,
+  pid,
 }));
 const todo_fix = createAction(TODOFIX, (pid, todoText) => ({
   pid,
@@ -118,17 +123,40 @@ const todo_add = createAction(TODOADD, (pid, todoText) => ({
   pid,
 }));
 
+//미들웨이
+const todoAddDB = (pid, todoText) => {
+  return function (dispatch, getstate, { history }) {
+    // const addTodoData = PostAddTodoList(pid, todoText);
+    const addTodoData = Math.random().toString(36).substr(2, 16);
+    const newtodo = { ...todoText, id: addTodoData };
+    console.log(newtodo);
+    dispatch(todo_add(pid, newtodo));
+  };
+};
+
+const todoFixDB = (pid, todoText) => {
+  return function (dispatch, getstate, { history }) {
+    const FixTodoData = PutFixTodoList(pid, todoText);
+    dispatch(todo_fix(pid, todoText));
+  };
+};
+const todoDelectDB = (cardId, textId) => {
+  return function (dispatch, getstate, { history }) {
+    DelectTodoList(cardId, textId);
+    dispatch(todo_delect(cardId, textId));
+  };
+};
 // Reducer
 export default handleActions(
   {
     [TODODELECT]: (state, action) =>
       produce(state, draft => {
-        const { id } = action.payload;
-        console.log(id);
-        const newTodo = state.todo.filter(x => {
-          return x.id !== id;
-        });
-        draft.todo = newTodo;
+        const { id, pid } = action.payload;
+        const num = draft.cards.findIndex(y => y.id === pid);
+        const index = draft.cards[num].cardDetails.findIndex(x => x.id === id);
+        console.log(index);
+        console.log(state);
+        draft.cards[num].cardDetails.splice(index, 1);
       }),
     [TODOADD]: (state, action) =>
       produce(state, draft => {
@@ -158,6 +186,9 @@ const actionCreators = {
   todo_delect,
   todo_fix,
   todo_add,
+  todoAddDB,
+  todoFixDB,
+  todoDelectDB,
 };
 
 export { actionCreators };

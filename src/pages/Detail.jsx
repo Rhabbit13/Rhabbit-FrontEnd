@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import styled from "styled-components";
+import moment from "moment";
 
 import Edit from "../components/Edit";
 import Modal from "../components/Modal";
@@ -17,17 +18,22 @@ const Detail = () => {
   const dispatch = useDispatch();
   const { pid } = useParams();
   const cards = useSelector(state => state.todo.cards);
+
   const isCard = cards.find(x => {
     return x.id === pid;
   });
+
   let count = 0;
   isCard.cardDetails.forEach(x => {
     if (x.checked === true) {
       count++;
     }
   });
+  const today = moment();
   let rate = Math.round((count / isCard.cardDetails.length) * 100);
-  const disabled = isCard.id === pid ? false : true;
+
+  const disabled = isCard.date === today.format("YYYYMMDD") ? false : true;
+
   const Bar = styled.div`
     background-color: #de4640;
     width: ${rate}%;
@@ -53,9 +59,12 @@ const Detail = () => {
         <Percentage>{rate}%</Percentage>
         <Bar></Bar>
       </Level>
-      {isCard.cardDetails.map((item, index) => (
-        <Edit key={index} disabled={disabled} data={item} pid={pid}></Edit>
-      ))}
+
+      {isCard.cardDetails.map((item, index) => {
+        return (
+          <Edit key={index} disabled={disabled} data={item} pid={pid}></Edit>
+        );
+      })}
 
       <Stack direction="row" spacing={2} style={fiexdBox}>
         <Button
@@ -72,7 +81,7 @@ const Detail = () => {
         >
           뒤로 돌아가기
         </Button>
-        <Modal pid={pid}></Modal>
+        <Modal pid={pid} disabled={disabled}></Modal>
       </Stack>
     </Grid>
   );
@@ -102,10 +111,6 @@ const Percentage = styled.h3`
   left: 10px;
   top: 10px;
   z-index: 99;
-`;
-const DailyBox = styled.div`
-  background-color: #eee;
-  width: 100%;
 `;
 
 export default Detail;
