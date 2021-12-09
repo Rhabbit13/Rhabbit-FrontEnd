@@ -142,7 +142,7 @@ const Success = styled.p`
   font-family: "jua", sans-serif;
   color: darkblue;
   position: absolute;
-  top: 30px;
+  top: 20px;
   left: 360px;
   animation: ${boxFade} 1s 1s infinite linear alternate;
   margin-right: 20px;

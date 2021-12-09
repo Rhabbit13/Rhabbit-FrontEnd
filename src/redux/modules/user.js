@@ -20,31 +20,33 @@ const user_initial = {
   password: "123",
 };
 
-const getUserDB = () => {
-  return function (dispatch, getState, { history }) {
-    const token = getToken();
+// const getUserDB = () => {
 
-    axios
-      .get("http:/18.224.37.224/", {
-        headers: {
-          Authorization: `BEARER ${token}`,
-        },
-      })
-      .then((response) => {
-        dispatch(
-          getUser({
-            nickname: response.data.nickname,
-            id: response.data.id,
-          })
-        );
-      });
-  };
-};
+
+//   return function (dispatch, getState, { history }) {
+//     const token = getToken();
+
+//     axios            
+//       .get("http://15.164.215.165", {
+//         headers: {
+//           Authorization: `BEARER ${token}`,
+//         },
+//       })
+//       .then((response) => {
+//         dispatch(
+//           getUser({
+//             nickname: response.data.nickname,
+//             id: response.data.id,
+//           })
+//         );
+//       });
+//   };
+// };
 
 const loginDB = (username, password) => {
   return function (dispatch, getState, { history }) {
     axios
-      .post("http://18.224.37.224/user/login ", {
+      .post("http://15.164.215.165/user/login ", {
         username: username,
         password: password,
       })
@@ -52,7 +54,7 @@ const loginDB = (username, password) => {
         console.log(response);
         dispatch(
           logIn({
-             token: response.data.token,
+            token: response.data.token,
             is_login: true,
           })
         );
@@ -60,7 +62,7 @@ const loginDB = (username, password) => {
         history.push("/main");
       })
       .catch((error) => {
-        alert("이메일을 확인하세요")
+        alert("이메일을 확인하세요");
         console.log("Login Error", error);
         window.location.reload();
       });
@@ -70,7 +72,7 @@ const loginDB = (username, password) => {
 const signupDB = (username, password, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
-      .post("http://18.224.37.224/user/signup", {
+      .post("http://15.164.215.165/user/signup", {
         nickname: nickname,
         username: username,
         password: password,
@@ -109,7 +111,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.nickname = action.payload.user.nickname;
         draft.username = action.payload.user.username;
-        
+
         draft.is_login = true;
       }),
     [SET_USER]: (state, action) =>
@@ -125,7 +127,7 @@ export default handleActions(
 const actionCreators = {
   signupDB,
   loginDB,
-  getUserDB,
+  // getUserDB,
   logOut,
 };
 
