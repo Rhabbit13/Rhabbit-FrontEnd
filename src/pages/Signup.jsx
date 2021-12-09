@@ -5,6 +5,10 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+
 
 const Signup = (props) => {
   const [id, setId] = React.useState("");
@@ -40,74 +44,90 @@ const Signup = (props) => {
 
   return (
     <React.Fragment>
-      <Wrap>
-        <Title>회원가입</Title>
-        <TextField
-          required
-          id="outlined-required"
-          label="이메일로 가입하기"
-          color="error"
-          onChange={(e) => {
-            setId(e.target.value);
-            if (isEmail(id) === true) {
-              setEmailCheck(true);
-              return;
-            }
-          }}
-        />
-        {emailCheck === false ? <p>이메일 형식이 아닙니다. </p> : ""}
-        <TextField
-          required
-          id="outlined-required"
-          label="User Name"
-          onChange={(e) => {
-            setUserName(e.target.value);
-          }}
-          color="error"
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="비빌번호  "
-          onChange={(e) => {
-            setPwd(e.target.value);
-          }}
-          color="error"
-        />
-        <TextField
-          required
-          type="password"
-          id="outlined-required"
-          label="비밀번호 확인"
-          onChange={(e) => {
-            setPwdCheck(e.target.value);
-          }}
-          color="error"
-        />
+      <CssBaseline />
+      <Container maxWidth="60%">
+        <Box
+          sx={{
+            boxShadow: "8px 8px 5px #999999",
+            bgcolor: "#EEE",
+            width: "100%",
+            margin: " 20px",
+            height: "90vh",
+            borderRadius: "10px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "20px",
+          }}>
+          {" "}
+          <Wrap>
+            <Title>회원가입</Title>
+            <TextField
+              required
+              id="outlined-required"
+              label="이메일로 가입하기"
+              color="error"
+              onChange={(e) => {
+                setId(e.target.value);
+                if (isEmail(id) === true) {
+                  setEmailCheck(true);
+                  return;
+                }
+              }}
+            />
+            {emailCheck === false ? <p>이메일 형식이 아닙니다. </p> : ""}
+            <TextField
+              required
+              id="outlined-required"
+              label="User Name"
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+              color="error"
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="비빌번호  "
+              onChange={(e) => {
+                setPwd(e.target.value);
+              }}
+              color="error"
+            />
+            <TextField
+              required
+              type="password"
+              id="outlined-required"
+              label="비밀번호 확인"
+              onChange={(e) => {
+                setPwdCheck(e.target.value);
+              }}
+              color="error"
+            />
 
-        <Button
-          variant="contained"
-          disableElevation
-          color="error"
-          onClick={() => {
-            signup()
-           }}>
-          회원 가입하기
-        </Button>
-      </Wrap>
+            <Button
+              variant="contained"
+              disableElevation
+              color="error"
+              onClick={() => {
+                signup();
+              }}>
+              회원 가입하기
+            </Button>
+          </Wrap>
+        </Box>
+      </Container>
     </React.Fragment>
   );
 };
 const Wrap = styled.div`
-  gap: 40px;
+  gap: 20px;
   display: flex;
   flex-direction: column;
   justify-items: center;
   width: 80%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+   
 `;
 const Title = styled.h2`
   font-size: 34px;

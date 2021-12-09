@@ -27,7 +27,7 @@ const getUserDB = () => {
     axios
       .get("http:/18.224.37.224/", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `BEARER ${token}`,
         },
       })
       .then((response) => {
@@ -52,18 +52,17 @@ const loginDB = (username, password) => {
         console.log(response);
         dispatch(
           logIn({
-            token: response.data.token,
+             token: response.data.token,
             is_login: true,
           })
         );
-        setCookie(
-          "token",
-          JSON.stringify(response.data.token)
-        );
-        history.push("/");
+        setCookie("token", JSON.stringify(response.data.token));
+        history.push("/main");
       })
       .catch((error) => {
+        alert("이메일을 확인하세요")
         console.log("Login Error", error);
+        window.location.reload();
       });
   };
 };
@@ -110,6 +109,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.nickname = action.payload.user.nickname;
         draft.username = action.payload.user.username;
+        
         draft.is_login = true;
       }),
     [SET_USER]: (state, action) =>
@@ -117,7 +117,6 @@ export default handleActions(
         draft.nickname = action.payload.user.nickname;
         draft.username = action.payload.user.username;
         draft.password = action.payload.user.password;
-        
       }),
   },
   user_initial
