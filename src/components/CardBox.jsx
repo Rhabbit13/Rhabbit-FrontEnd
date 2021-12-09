@@ -10,15 +10,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 const CardBox = props => {
   const dispatch = useDispatch();
-  const { data, user } = props;
-  const todoList = useSelector(state => state.todo.todo);
-  const postTodo = todoList
-    .filter((x, i) => {
-      return x.pid === data.id;
-    })
-    .filter((y, i) => {
-      return i < 2;
-    });
+  const { data } = props;
+
+  let count = 0;
+  data.cardDetails.forEach(x => {
+    if (x.checked === true) {
+      count++;
+    }
+  });
+  let rate = Math.round((count / data.cardDetails.length) * 100);
+
   return (
     <Card
       sx={{ minWidth: "50%" }}
@@ -27,10 +28,10 @@ const CardBox = props => {
       <CardContent sx={{ padding: "16px 20px !important", height: "120px" }}>
         <FlexBox>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {user.nickname}
+            {data.date}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {data.date}
+            {data.user.nickname}
           </Typography>
         </FlexBox>
         <Typography
@@ -38,15 +39,17 @@ const CardBox = props => {
           variant="h5"
           component="div"
         >
-          {data.rate} %
+          {rate} %
         </Typography>
-        {postTodo.map((_, index) => {
-          return (
-            <Typography key={index} variant="body2">
-              {_.text}
-            </Typography>
-          );
-        })}
+        <OverFlow>
+          {data.cardDetails.map((item, index) => {
+            return (
+              <Typography key={index} variant="body2">
+                {item.text}
+              </Typography>
+            );
+          })}
+        </OverFlow>
         ...
       </CardContent>
     </Card>
@@ -56,5 +59,9 @@ const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+const OverFlow = styled.div`
+  height: 43px;
+  overflow: hidden;
 `;
 export default CardBox;

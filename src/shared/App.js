@@ -1,7 +1,7 @@
 import "../styles/App.css";
 import Container from "@mui/material/Container";
 import { Route, Link, Switch } from "react-router-dom";
- import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import Main from "../pages/Main";
 import Login from "../pages/Login";
 import Detail from "../pages/Detail";
@@ -17,11 +17,11 @@ function App() {
         style={{ position: "relative", height: "100vh" }}
       >
         <Switch>
-          <Route exact path="/" component={() => <Main></Main>} />
+          <Route exact path="/main/:id" component={() => <Main></Main>} />
           <Route path="/login" component={() => <Login></Login>} />
           <Route path="/signup" component={() => <Signup></Signup>} />
           <Route path="/detail/:pid" component={() => <Detail></Detail>} />
-          <Route path="/fix/:pid" component={() => <Fix></Fix>} />
+          {/* <Route path="/fix/:pid" component={() => <Fix></Fix>} /> */}
           <Route component={() => <Not></Not>} />
         </Switch>
       </Container>

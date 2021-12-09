@@ -16,31 +16,26 @@ import { useSelector, useDispatch } from "react-redux";
 const Detail = () => {
   const dispatch = useDispatch();
   const { pid } = useParams();
-  const Post = useSelector(state => state.todo.post);
-  const todo = useSelector(state => state.todo.todo);
-
-  const isTodo = todo.filter(x => {
-    return x.pid === pid;
-  });
-  const deilyTodo = todo.filter(y => {
-    return y.daily === true;
-  });
-
-  const isPost = Post.find(x => {
+  const cards = useSelector(state => state.todo.cards);
+  const isCard = cards.find(x => {
     return x.id === pid;
   });
-
-  const disabled = isPost.id === pid ? false : true;
-
+  let count = 0;
+  isCard.cardDetails.forEach(x => {
+    if (x.checked === true) {
+      count++;
+    }
+  });
+  let rate = Math.round((count / isCard.cardDetails.length) * 100);
+  const disabled = isCard.id === pid ? false : true;
   const Bar = styled.div`
     background-color: #de4640;
-    width: ${isPost.rate}%;
+    width: ${rate}%;
     height: 100%;
     position: absolute;
     left: 0px;
     top: 0px;
   `;
-  const AddList = () => {};
   return (
     <Grid
       container
@@ -55,15 +50,11 @@ const Detail = () => {
     >
       <Header></Header>
       <Level>
-        <Percentage>{isPost.rate}%</Percentage>
+        <Percentage>{rate}%</Percentage>
         <Bar></Bar>
       </Level>
-      {deilyTodo.map((item, index) => (
-        <Edit key={index} disabled={disabled} data={item}></Edit>
-      ))}
-
-      {isTodo.map((_, index) => (
-        <Edit key={index} disabled={disabled} data={_}></Edit>
+      {isCard.cardDetails.map((item, index) => (
+        <Edit key={index} disabled={disabled} data={item} pid={pid}></Edit>
       ))}
 
       <Stack direction="row" spacing={2} style={fiexdBox}>
@@ -81,7 +72,7 @@ const Detail = () => {
         >
           뒤로 돌아가기
         </Button>
-        <Modal></Modal>
+        <Modal pid={pid}></Modal>
       </Stack>
     </Grid>
   );

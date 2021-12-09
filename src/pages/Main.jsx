@@ -5,17 +5,18 @@ import CardBox from "../components/CardBox";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
+import { useParams } from "react-router";
 
 const Main = props => {
   //임시 user 정보 후에 jws 정보를 가지고 서버에 요청해 postlist를 가지고 오게 한다.
-  const user = useSelector(state => state.todo.user);
-  const post = useSelector(state => state.todo.post);
+  const { id } = useParams();
+  const cards = useSelector(state => state.todo.cards);
   React.useEffect(() => {}, []);
   return (
     <MainPage>
       <Header></Header>
       <Grid container rowSpacing={3} columnSpacing={{ xs: 2, sm: 3, md: 2 }}>
-        {post.map((_, index) => (
+        {cards.map((_, index) => (
           <Grid
             item
             xs={index === 0 ? 12 : 6}
@@ -24,7 +25,7 @@ const Main = props => {
               history.push(`/detail/${_.id}`);
             }}
           >
-            <CardBox data={_} user={user}></CardBox>
+            <CardBox data={_}></CardBox>
           </Grid>
         ))}
       </Grid>
