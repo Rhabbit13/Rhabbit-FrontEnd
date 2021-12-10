@@ -33,6 +33,7 @@ const CardBox = (props) => {
           backgroundColor: "#DE4640",
           opacity: [0.9, 0.8, 0.7],
           transform: "scale(1.05)",
+          cursor:"pointer",
         },
       }}
 
