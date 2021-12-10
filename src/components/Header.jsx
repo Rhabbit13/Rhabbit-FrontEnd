@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { getCookie } from "../shared/Cookie";
 
-const Header = props => {
+const Header = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   return (
@@ -27,10 +27,14 @@ const Header = props => {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, color: "#DE4640", fontWeight:"bold" }}>
+            sx={{ flexGrow: 1, color: "#DE4640", fontWeight: "bold" }}>
             Rhabbit
           </Typography>
-          <img src="https://k-comics.com/wp-content/uploads/2019/07/page015.gif" alt="토끼이미지" style={{width:"100px", height: "100px", marginRight: " 125px"}}/> 
+          <img
+            src="https://www.khgames.co.kr/news/photo/images/imglib20/494_59_2.jpg"
+            alt="토끼이미지"
+            style={{ width: "100px", height: "100px", marginRight: " 125px" }}
+          />
           {getCookie("Authorization") ? (
             <Button
               onClick={() => {
