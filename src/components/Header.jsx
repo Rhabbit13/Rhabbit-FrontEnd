@@ -30,7 +30,7 @@ const Header = props => {
             sx={{ flexGrow: 1, color: "#DE4640", fontWeight:"bold" }}>
             Rhabbit
           </Typography>
-          <img src="https://k-comics.com/wp-content/uploads/2019/07/page015.gif" alt="토끼이미지" style={{width:"100px", height: "100px", marginRight: " 150px"}}/> 
+          <img src="https://k-comics.com/wp-content/uploads/2019/07/page015.gif" alt="토끼이미지" style={{width:"100px", height: "100px", marginRight: " 125px"}}/> 
           {getCookie("Authorization") ? (
             <Button
               onClick={() => {

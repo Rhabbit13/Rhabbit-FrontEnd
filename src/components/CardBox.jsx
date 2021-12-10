@@ -32,6 +32,7 @@ const CardBox = (props) => {
         "&:hover": {
           backgroundColor: "#DE4640",
           opacity: [0.9, 0.8, 0.7],
+          transform: "scale(1.05)",
         },
       }}
 
@@ -73,7 +74,11 @@ const CardBox = (props) => {
               <Typography
                 key={index}
                 variant="body2"
-                style={{ color: "white", fontWeight: "200", fontWeight:"bold" }}>
+                style={{
+                  color: "white",
+                  fontWeight: "200",
+                  fontWeight: "bold",
+                }}>
                 {item.text}
               </Typography>
             );
