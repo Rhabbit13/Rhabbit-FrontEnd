@@ -12,7 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { useParams } from "react-router";
 
-const Edit = (props) => {
+const Edit = props => {
   const { disabled, data, pid } = props;
   const dispatch = useDispatch();
   const [selected, setSelected] = React.useState(false);
@@ -20,44 +20,44 @@ const Edit = (props) => {
   const [checked, setChecked] = React.useState(data.checked);
   const [typing, setTyping] = React.useState(data.text);
   const textRef = React.useRef("");
-  const DelectBtn = (e) => {
-    dispatch(todoAction.todo_delect(data.id, pid));
+  const DelectBtn = e => {
+    dispatch(todoAction.todoDelectDB(Number(pid), data.textId));
   };
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setChecked(!checked);
     const todoText = {
-      id: data.id,
+      textId: data.textId,
       text: data.text,
       checked: !checked,
       daily: data.daily,
     };
-    dispatch(todoAction.todo_fix(pid, todoText));
+    dispatch(todoAction.todoFixDB(pid, todoText));
   };
-  const DailyChange = (e) => {
+  const DailyChange = e => {
     const todoText = {
-      id: data.id,
+      textId: data.textId,
       text: data.text,
       checked: data.checked,
       daily: !selected,
     };
-    dispatch(todoAction.todo_fix(pid, todoText));
+    dispatch(todoAction.todoFixDB(pid, todoText));
   };
-  const ChangeText = (e) => {
+  const ChangeText = e => {
     const todoText = {
-      id: data.id,
+      textId: data.textId,
       text: textRef.current.value,
       checked: data.checked,
       daily: data.daily,
     };
     if (fixed !== false && textRef.current.value) {
-      dispatch(todoAction.todo_fix(pid, todoText));
+      dispatch(todoAction.todoFixDB(pid, todoText));
     } else {
       console.log("응 아니야");
     }
   };
   const sxx = { "& .MuiSvgIcon-root": { fontSize: 25, color: "#DE4640" } };
-  const ChangeEvent = (e) => {
+  const ChangeEvent = e => {
     setTyping(e.target.value);
   };
   return (
@@ -74,7 +74,8 @@ const Edit = (props) => {
           onChange={() => {
             setFixed(!fixed);
             ChangeText();
-          }}>
+          }}
+        >
           <AutoFixHighIcon />
         </ToggleButton>
         <ToggleButton
@@ -85,10 +86,11 @@ const Edit = (props) => {
           size="small"
           value="check"
           selected={data.daily}
-          onChange={async (e) => {
+          onChange={async e => {
             setSelected(!selected);
             DailyChange(e);
-          }}>
+          }}
+        >
           <BookmarkAddedIcon />
         </ToggleButton>
         <IconButton
@@ -98,7 +100,8 @@ const Edit = (props) => {
           size="small"
           onClick={() => {
             DelectBtn();
-          }}>
+          }}
+        >
           <CloseIcon />
         </IconButton>
       </FelxBox>

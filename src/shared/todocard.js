@@ -7,18 +7,17 @@ export function PostAddTodoList(Id, Data) {
     data: Data,
   });
 }
-export function PutFixTodoList(Id, Data) {
+export function PutFixTodoList(cardId, Data) {
   return instance({
     method: "PUT",
-    url: `/api/${Id}/detail/update`,
+    url: `/api/${cardId}/detail/update`,
     data: Data,
   });
 }
 export function DelectTodoList(cardId, textId) {
   return instance({
-    method: "DELECT",
-    url: `/api/${cardId}/detail/delete`,
-    data: textId,
+    method: "DELETE",
+    url: `/api/${cardId}/detail/delete/${textId}`,
   });
 }
 export function LoadCardList() {

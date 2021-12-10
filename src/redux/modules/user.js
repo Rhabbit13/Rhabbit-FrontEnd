@@ -41,22 +41,12 @@ const loginDB = (username, password) => {
           })
         );
         setCookie("Authorization", response.headers.authorization);
-        dispatch(todoAction.cardLoadDB());
-
-        const cards = getState().todo.cards;
-        const findCard = cards.find(item => {
-          return item.date === date;
-        });
-        if (cards === null) {
-          dispatch(todoAction.cardAddDB());
-        }
-        if (findCard === undefined) {
-          dispatch(todoAction.cardAddDB());
-        } else {
-          history.push("/");
-        }
+        history.push("/");
+        window.location.reload();
       })
       .catch(error => {
+        alert("아이디 나 비밀번호가 잘 못 되었습니다.");
+        window.location.reload();
         console.log("Login Error", error);
       });
   };
@@ -83,13 +73,11 @@ const signupDB = (username, nickname, password) => {
 export default handleActions(
   {
     [LOG_IN]: (state, action) =>
-       produce(state, (draft) => {
-
- 
+      produce(state, draft => {
         draft.token = action.payload.user.token;
         draft.is_login = action.payload.user.is_login;
         draft.username = action.payload.user.is_login;
-       }),
+      }),
 
     [LOG_OUT]: (state, action) =>
       produce(state, draft => {

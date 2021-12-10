@@ -15,14 +15,9 @@ const TODOADD = "TODOADD";
 const TODODELECT = "TODODELECT";
 const TODOFIX = "TODOFIX";
 const CARDLOAD = "CARDLOAD";
+const CARDADD = "CARDADD";
 
 const initialState = {
-  user: {
-    id: "asq12q@1Was3ddas",
-    username: "cwed222",
-    nickname: "올루션",
-    achievementrate: 30,
-  },
   cards: [],
 };
 
@@ -43,15 +38,14 @@ const todo_add = createAction(TODOADD, (pid, todoText) => ({
 const card_load = createAction(CARDLOAD, cards => ({
   cards,
 }));
+const card_add = createAction(CARDADD, card => ({ card }));
 
 //미들웨이
 const todoAddDB = (pid, todoText) => {
-  return function (dispatch, getstate, { history }) {
-    // const addTodoData = PostAddTodoList(pid, todoText);
-    const addTodoData = Math.random().toString(36).substr(2, 16);
-    const newtodo = { ...todoText, id: addTodoData };
-    console.log(newtodo);
-    dispatch(todo_add(pid, newtodo));
+  return async function (dispatch, getstate, { history }) {
+    const addTodoData = await PostAddTodoList(pid, todoText);
+    console.log(addTodoData);
+    dispatch(todo_add(pid, addTodoData));
   };
 };
 
@@ -63,6 +57,7 @@ const todoFixDB = (pid, todoText) => {
 };
 const todoDelectDB = (cardId, textId) => {
   return function (dispatch, getstate, { history }) {
+    console.log(cardId, textId);
     DelectTodoList(cardId, textId);
     dispatch(todo_delect(cardId, textId));
   };
@@ -77,6 +72,7 @@ const cardAddDB = data => {
   return async function (dispatch) {
     const card = await AddCardList(data);
     console.log(card);
+    dispatch(card_add(card));
   };
 };
 // Reducer
@@ -86,10 +82,12 @@ export default handleActions(
       produce(state, draft => {
         const { id, pid } = action.payload;
         const num = draft.cards.findIndex(y => y.id === pid);
-        const index = draft.cards[num].cardDetails.findIndex(x => x.id === id);
+        const index = draft.cards[num].cardsDetailDtos.findIndex(
+          x => x.id === id
+        );
         console.log(index);
         console.log(state);
-        draft.cards[num].cardDetails.splice(index, 1);
+        draft.cards[num].cardsDetailDtos.splice(index, 1);
       }),
     [TODOADD]: (state, action) =>
       produce(state, draft => {
@@ -98,7 +96,7 @@ export default handleActions(
         const card_num = state.cards.findIndex(x => {
           return x.id === pid;
         });
-        draft.cards[card_num].cardDetails.push(todoText);
+        draft.cards[card_num].cardsDetailDtos.push(todoText);
       }),
     [TODOFIX]: (state, action) =>
       produce(state, draft => {
@@ -106,14 +104,20 @@ export default handleActions(
         const card_num = state.cards.findIndex(x => {
           return x.id === pid;
         });
-        const detail_num = state.cards[card_num].cardDetails.findIndex(x => {
-          return x.id === todoText.id;
-        });
-        draft.cards[card_num].cardDetails[detail_num] = todoText;
+        const detail_num = state.cards[card_num].cardsDetailDtos.findIndex(
+          x => {
+            return x.id === todoText.id;
+          }
+        );
+        draft.cards[card_num].cardsDetailDtos[detail_num] = todoText;
       }),
     [CARDLOAD]: (state, action) =>
       produce(state, draft => {
         draft.cards = action.payload.cards;
+      }),
+    [CARDADD]: (state, action) =>
+      produce(state, draft => {
+        draft.cards.unshift(action.payload.card);
       }),
   },
   initialState
@@ -129,6 +133,7 @@ const actionCreators = {
   cardLoadDB,
   card_load,
   cardAddDB,
+  card_add,
 };
 
 export { actionCreators };

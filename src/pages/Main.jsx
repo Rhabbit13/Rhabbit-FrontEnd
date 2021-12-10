@@ -13,9 +13,15 @@ const Main = props => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const cards = useSelector(state => state.todo.cards);
+
   React.useEffect(() => {
-    dispatch(todoAction.cardLoadDB());
+    if (cards === []) {
+      dispatch(todoAction.cardAddDB());
+    }
   }, []);
+
+  React.useEffect(() => {}, []);
+
   return (
     <MainPage>
       <Header></Header>
@@ -26,7 +32,7 @@ const Main = props => {
             xs={index === 0 ? 12 : 6}
             key={index}
             onClick={() => {
-              history.push(`/detail/${_.id}`);
+              history.push(`/detail/${_.cardsId}`);
             }}
           >
             <CardBox data={_}></CardBox>

@@ -7,10 +7,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { Rate } from "../shared/Rate";
 
-const CardBox = (props) => {
+const CardBox = props => {
   const dispatch = useDispatch();
   const { data } = props;
+  // const { rate, disabled } = Rate();
 
   let count = 0;
   data.cardsDetailDtos.forEach(x => {
@@ -44,12 +46,14 @@ const CardBox = (props) => {
         sx={{
           padding: "16px 20px !important",
           height: "120px",
-        }}>
+        }}
+      >
         <FlexBox>
           <Typography
             sx={{ fontSize: 14, color: "white" }}
             color="text.secondary"
-            gutterBottom>
+            gutterBottom
+          >
             {data.date}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -63,7 +67,8 @@ const CardBox = (props) => {
             fontWeight: "200",
           }}
           variant="h5"
-          component="div">
+          component="div"
+        >
           {rate} %
         </Typography>
         <OverFlow>
@@ -75,7 +80,8 @@ const CardBox = (props) => {
                 style={{
                   color: "white",
                   fontWeight: "200",
-                }}>
+                }}
+              >
                 {item.text}
               </Typography>
             );

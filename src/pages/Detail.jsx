@@ -13,35 +13,19 @@ import { useParams } from "react-router";
 import Header from "../components/Header";
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as todoAction } from "../redux/modules/todo";
 
 const Detail = () => {
   const dispatch = useDispatch();
   const { pid } = useParams();
   const cards = useSelector(state => state.todo.cards);
+  const cardList = cards ? cards : "";
 
-  const isCard = cards.find(x => {
-    return x.id === pid;
+  const isCard = cardList.find(x => {
+    return x.cardsId === Number(pid);
   });
+  console.log(isCard);
 
-  let count = 0;
-  isCard.cardDetails.forEach(x => {
-    if (x.checked === true) {
-      count++;
-    }
-  });
-  const today = moment();
-  let rate = Math.round((count / isCard.cardDetails.length) * 100);
-
-  const disabled = isCard.date === today.format("YYYYMMDD") ? false : true;
-
-  const Bar = styled.div`
-    background-color: #de4640;
-    width: ${rate}%;
-    height: 100%;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-  `;
   return (
     <Grid
       container
@@ -56,15 +40,17 @@ const Detail = () => {
     >
       <Header></Header>
       <Level>
-        <Percentage>{rate}%</Percentage>
+        <Percentage>%</Percentage>
         <Bar></Bar>
       </Level>
 
-      {isCard.cardDetails.map((item, index) => {
-        return (
-          <Edit key={index} disabled={disabled} data={item} pid={pid}></Edit>
-        );
-      })}
+      {isCard
+        ? isCard.cardsDetailDtos.map((item, index) => {
+            return (
+              <Edit key={index} disabled={false} data={item} pid={pid}></Edit>
+            );
+          })
+        : ""}
 
       <Stack direction="row" spacing={2} style={fiexdBox}>
         <Button
@@ -81,11 +67,19 @@ const Detail = () => {
         >
           뒤로 돌아가기
         </Button>
-        <Modal pid={pid} disabled={disabled}></Modal>
+        <Modal pid={pid} disabled={false}></Modal>
       </Stack>
     </Grid>
   );
 };
+const Bar = styled.div`
+  background-color: #de4640;
+  width: %;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+`;
 const fiexdBox = {
   width: "600px",
   position: "fixed",

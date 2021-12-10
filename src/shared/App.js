@@ -19,9 +19,8 @@ import PrivateRoute from "../components/PrivateRoute";
 function App() {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    // dispatch(todoAction.cardAddDB());
-    dispatch(userAction.loadTokenBrowser());
-  });
+    dispatch(todoAction.cardLoadDB());
+  }, []);
   return (
     <div className="App">
       <Container

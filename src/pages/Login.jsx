@@ -10,17 +10,16 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import "@fontsource/jua";
 
-const Login = (props) => {
+const Login = props => {
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
 
- 
-  const changeId = (e) => {
+  const changeId = e => {
     setId(e.target.value);
   };
 
-  const changePwd = (e) => {
+  const changePwd = e => {
     setPwd(e.target.value);
   };
 
@@ -49,7 +48,8 @@ const Login = (props) => {
             justifyContent: "center",
             alignItems: "center",
             padding: "20px",
-          }}>
+          }}
+        >
           <Success>SUCCESS!!</Success>
           <Wrap>
             <img src="/static/habbit.png" alt="로고" />
@@ -61,7 +61,7 @@ const Login = (props) => {
               required
               id="outlined-required"
               label="E-mail"
-              onChange={(e) => changeId(e)}
+              onChange={e => changeId(e)}
             />
             <TextField
               value={pwd}
@@ -69,7 +69,7 @@ const Login = (props) => {
               type="password"
               id="outlined-required"
               label="PASSWORD"
-              onChange={(e) => changePwd(e)}
+              onChange={e => changePwd(e)}
             />
             <div>
               <Button
@@ -79,7 +79,8 @@ const Login = (props) => {
                 color="error"
                 onClick={() => {
                   login();
-                }}>
+                }}
+              >
                 LOG IN
               </Button>
               <Button
@@ -89,7 +90,8 @@ const Login = (props) => {
                 color="error"
                 onClick={() => {
                   history.push("/signup");
-                }}>
+                }}
+              >
                 Sign Up
               </Button>
             </div>
@@ -116,7 +118,7 @@ const Wrap = styled.div`
 const Title = styled.h2`
   font-size: 40px;
   text-align: center;
-  color: darkblue;
+  color: #3e3e3e;
   font-family: "jua", sans-serif;
   font-weight: 300;
 `;
