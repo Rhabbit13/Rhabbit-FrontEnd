@@ -30,14 +30,13 @@ const loginDB = (username, password) => {
         console.log(response);
         dispatch(
           logIn({
-            token: response.headers.authorization,
-            is_login: true,
+             is_login: true,
           })
         );
 
         setCookie("Authorization", response.headers.authorization);
         console.log(response.headers.authorization);
-        history.push("/main");
+        history.push("/");
       })
       .catch((error) => {
         console.log("Login Error", error);
@@ -76,15 +75,17 @@ export default handleActions(
   {
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
+
         draft.token = action.payload.user.token;
         draft.is_login = action.payload.user.is_login;
-      }),
+        draft.username = action.payload.user.is_login;
+       }),
 
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         deleteCookie("Authorization");
 
-        draft.user = null;
+        draft.username = null;
         draft.is_login = false;
       }),
     [GET_USER]: (state, action) =>
