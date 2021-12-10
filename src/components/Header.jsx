@@ -9,14 +9,11 @@ import { useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { actionCreators as userActions } from "../redux/modules/user";
-
-
- 
+import { getCookie } from "../shared/Cookie";
 
 const Header = props => {
-
-  const history = useHistory()
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <Box
       sx={{
@@ -24,19 +21,33 @@ const Header = props => {
         backgroundColor: "#eee",
         width: "100%",
         marginBottom: "50px",
-      }}
-    >
+      }}>
       <AppBar position="static" style={{ background: "#eee", color: "#000" }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, color: "#DE4640", fontWeight:"bold" }}>
             Rhabbit
           </Typography>
-          <Button  onClick={()=>{
-            deleteCookie("Authorization");
-            history.push('/login') 
-            dispatch(userActions.logOut("Authorization"));
-            }}>
-          Logout </Button> 
+          <img src="https://k-comics.com/wp-content/uploads/2019/07/page015.gif" alt="토끼이미지" style={{width:"100px", height: "100px", marginRight: " 150px"}}/> 
+          {getCookie("Authorization") ? (
+            <Button
+              onClick={() => {
+                deleteCookie("Authorization");
+                history.push("/login");
+                dispatch(userActions.logOut());
+              }}>
+              Logout{" "}
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                history.push("/login");
+              }}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

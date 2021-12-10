@@ -13,6 +13,7 @@ const setCookie = (Authorization, value, exp = 5) => {
   let date = new Date();
   date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
   document.cookie = `${Authorization}=${value};expires=${date.toUTCString()};path=/`;
+ 
 };
 // 토큰을 지울때
 const deleteCookie = (name) => {
