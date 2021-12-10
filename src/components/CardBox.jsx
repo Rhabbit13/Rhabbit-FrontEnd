@@ -26,14 +26,14 @@ const CardBox = (props) => {
         boxShadow: "8px 8px 5px #999999",
         bgcolor: "#EEE",
         borderRadius: "10px",
-        width: 250,
+        width: "100%",
         height: 250,
         backgroundColor: "#F57053",
         "&:hover": {
           backgroundColor: "#DE4640",
           opacity: [0.9, 0.8, 0.7],
           transform: "scale(1.05)",
-          cursor:"pointer",
+          cursor: "pointer",
         },
       }}
 
@@ -78,7 +78,6 @@ const CardBox = (props) => {
                 style={{
                   color: "white",
                   fontWeight: "200",
-                  fontWeight: "bold",
                 }}>
                 {item.text}
               </Typography>
