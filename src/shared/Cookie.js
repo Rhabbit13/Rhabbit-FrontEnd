@@ -1,12 +1,18 @@
+<<<<<<< HEAD
  
 // 브라우저에 있는 토큰을 가지고 올때
 const getCookie = name => {
    let value = "; " + document.cookie;
+=======
+const getCookie = name => {
+  let value = "; " + document.cookie;
+>>>>>>> 2bc67069eb6c7e9867424e702d4a336db297edc0
   let parts = value.split("; " + name + "=");
   if (parts.length === 2) {
     return parts.pop().split(";").shift();
   }
 };
+<<<<<<< HEAD
 < 
 // 토큰을 브라우저에 넣을때
 const setCookie = (Authorization, value, exp = 5) => {
@@ -17,6 +23,17 @@ const setCookie = (Authorization, value, exp = 5) => {
 // 토큰을 지울때
 const deleteCookie = name => {
    document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+=======
+
+const setCookie = (name, value, exp = 5) => {
+  let date = new Date();
+  date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/main`;
+};
+
+const deleteCookie = name => {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+>>>>>>> 2bc67069eb6c7e9867424e702d4a336db297edc0
 };
 
 export { getCookie, setCookie, deleteCookie };
