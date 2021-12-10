@@ -5,15 +5,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { deleteCookie } from "../shared/Cookie";
 import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { getCookie } from "../shared/Cookie";
-
+import { isLogin } from "../shared/permit";
 const Header = props => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   return (
     <Box
       sx={{
@@ -28,11 +28,12 @@ const Header = props => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Rhabbit
           </Typography>
-          {getCookie("Authorization") ? (
+          {isLogin() ? (
             <Button
               onClick={() => {
                 deleteCookie("Authorization");
                 history.push("/login");
+                window.location.reload();
                 dispatch(userActions.logOut());
               }}
             >

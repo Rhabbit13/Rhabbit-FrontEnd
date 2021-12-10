@@ -13,12 +13,12 @@ const CardBox = props => {
   const { data } = props;
 
   let count = 0;
-  data.cardDetails.forEach(x => {
+  data.cardsDetailDtos.forEach(x => {
     if (x.checked === true) {
       count++;
     }
   });
-  let rate = Math.round((count / data.cardDetails.length) * 100);
+  let rate = Math.round((count / data.cardsDetailDtos.length) * 100);
 
   return (
     <Card
@@ -31,7 +31,7 @@ const CardBox = props => {
             {data.date}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {data.user.nickname}
+            {data.nickname}
           </Typography>
         </FlexBox>
         <Typography
@@ -42,7 +42,7 @@ const CardBox = props => {
           {rate} %
         </Typography>
         <OverFlow>
-          {data.cardDetails.map((item, index) => {
+          {data.cardsDetailDtos.map((item, index) => {
             return (
               <Typography key={index} variant="body2">
                 {item.text}

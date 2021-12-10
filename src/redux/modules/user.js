@@ -2,25 +2,32 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 import axios from "axios";
+import { actionCreators as todoAction } from "./todo";
+import moment from "moment";
 
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
-const GET_USER = "GET_USER";
-const SET_USER = "SET_USER";
+const LOAD_TOKEN = "LOAD_TOKEN";
 
 const logIn = createAction(LOG_IN, user => ({ user }));
 const logOut = createAction(LOG_OUT, user => ({ user }));
-const getUser = createAction(GET_USER, user => ({ user }));
-const setUser = createAction(SET_USER, user => ({ user }));
+const loadToken = createAction(LOAD_TOKEN, boo => ({ boo }));
 
 const user_initial = {
-  username: "test@naver.com",
-  nickname: "이름",
-  password: "123",
+  is_login: false,
+};
+
+const loadTokenBrowser = () => {
+  return function (dispatch) {
+    if (getCookie("Authorization")) {
+      dispatch(loadToken());
+    }
+  };
 };
 
 const loginDB = (username, password) => {
   return function (dispatch, getState, { history }) {
+    const date = moment().format("YYYYMMDD");
     axios
       .post("http://15.164.215.165/user/login ", {
         username: username,
@@ -30,18 +37,27 @@ const loginDB = (username, password) => {
         console.log(response);
         dispatch(
           logIn({
-            token: response.headers.authorization,
             is_login: true,
           })
         );
-
         setCookie("Authorization", response.headers.authorization);
-        console.log(response.headers.authorization);
-        history.push("/");
+        dispatch(todoAction.cardLoadDB());
+
+        const cards = getState().todo.cards;
+        const findCard = cards.find(item => {
+          return item.date === date;
+        });
+        if (cards === null) {
+          dispatch(todoAction.cardAddDB());
+        }
+        if (findCard === undefined) {
+          dispatch(todoAction.cardAddDB());
+        } else {
+          history.push("/");
+        }
       })
       .catch(error => {
         console.log("Login Error", error);
-        window.location.reload();
       });
   };
 };
@@ -55,14 +71,6 @@ const signupDB = (username, nickname, password) => {
         password: password,
       })
       .then(response => {
-        dispatch(
-          setUser({
-            username: username,
-            nickname: nickname,
-            password: password,
-          })
-        );
-
         history.push("/login");
       })
       .catch(error => {
@@ -82,21 +90,11 @@ export default handleActions(
 
     [LOG_OUT]: (state, action) =>
       produce(state, draft => {
-        draft.user = null;
         draft.is_login = false;
       }),
-    [GET_USER]: (state, action) =>
+    [LOAD_TOKEN]: (state, action) =>
       produce(state, draft => {
-        draft.nickname = action.payload.user.nickname;
-        draft.username = action.payload.user.username;
-
         draft.is_login = true;
-      }),
-    [SET_USER]: (state, action) =>
-      produce(state, draft => {
-        draft.nickname = action.payload.user.nickname;
-        draft.username = action.payload.user.username;
-        draft.password = action.payload.user.password;
       }),
   },
   user_initial
@@ -106,6 +104,7 @@ const actionCreators = {
   signupDB,
   loginDB,
   logOut,
+  loadTokenBrowser,
 };
 
 export { actionCreators };

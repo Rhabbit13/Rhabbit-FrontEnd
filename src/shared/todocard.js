@@ -21,3 +21,17 @@ export function DelectTodoList(cardId, textId) {
     data: textId,
   });
 }
+export function LoadCardList() {
+  return instance({
+    method: "GET",
+    url: `/api/cards/`,
+  });
+}
+
+export function AddCardList(data) {
+  return instance({
+    method: "POST",
+    url: "/api/cards",
+    data: data,
+  });
+}

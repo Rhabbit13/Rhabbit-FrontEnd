@@ -4,12 +4,17 @@ import {
   PostAddTodoList,
   PutFixTodoList,
   DelectTodoList,
+  LoadCardList,
+  AddCardList,
 } from "../../shared/todocard";
+import { getCookie } from "../../shared/Cookie";
 
+import axios from "axios";
 // Actions
 const TODOADD = "TODOADD";
 const TODODELECT = "TODODELECT";
 const TODOFIX = "TODOFIX";
+const CARDLOAD = "CARDLOAD";
 
 const initialState = {
   user: {
@@ -18,94 +23,7 @@ const initialState = {
     nickname: "올루션",
     achievementrate: 30,
   },
-  cards: [
-    {
-      id: "asq11hhhjfgwafvcb@3345s",
-      user: {
-        id: "asq12q@1Was3ddas",
-        username: "username",
-        nickname: "nickname",
-        password:
-          "$2a$10$m9Ip/m4/OrhNrbLragyZl.EjITANGCCetrt8ERIw/ZWoP6HdASRyq",
-      },
-      cardDetails: [
-        {
-          id: "1122q@1Was113333Ue3dd",
-          text: "10시 기상",
-          checked: false,
-          daily: true,
-        },
-        {
-          id: "12q@144Ue3dd",
-          text: "13시 자장가",
-          checked: false,
-          daily: true,
-        },
-        {
-          id: "12q@4aas",
-          text: "12시 사자",
-          checked: false,
-          daily: true,
-        },
-        {
-          id: "12q@13hh55Ue73dd",
-          text: "15시 짜장면",
-          checked: true,
-          daily: false,
-        },
-        {
-          id: "12q@1Wa333s113333Ue3dd",
-          text: "11시 고양이",
-          checked: true,
-          daily: false,
-        },
-      ],
-      date: "20211209",
-    },
-    {
-      id: "asq11hhssssshjfgwafvcb@3345s",
-      user: {
-        id: "asq12q@1Was3ddas",
-        username: "username",
-        nickname: "nickname",
-        password:
-          "$2a$10$m9Ip/m4/OrhNrbLragyZl.EjITANGCCetrt8ERIw/ZWoP6HdASRyq",
-      },
-      cardDetails: [
-        {
-          id: "s3Ue3dd",
-          text: "10시 기상",
-          checked: false,
-          daily: true,
-        },
-        {
-          id: "12q@13hhe73dd",
-          text: "15시 짜장면",
-          checked: true,
-          daily: false,
-        },
-        {
-          id: "d3333Ue3dd",
-          text: "11시 고양이",
-          checked: false,
-          daily: false,
-        },
-        {
-          id: "1fassss1s",
-          text: "12시 사자",
-          checked: false,
-          daily: false,
-        },
-        {
-          id: "12q@gUe3dd",
-          text: "13시 자장가",
-          checked: false,
-          daily: false,
-        },
-      ],
-      date: "20211208",
-    },
-  ],
+  cards: [],
 };
 
 // Action Creators
@@ -121,6 +39,9 @@ const todo_fix = createAction(TODOFIX, (pid, todoText) => ({
 const todo_add = createAction(TODOADD, (pid, todoText) => ({
   todoText,
   pid,
+}));
+const card_load = createAction(CARDLOAD, cards => ({
+  cards,
 }));
 
 //미들웨이
@@ -144,6 +65,18 @@ const todoDelectDB = (cardId, textId) => {
   return function (dispatch, getstate, { history }) {
     DelectTodoList(cardId, textId);
     dispatch(todo_delect(cardId, textId));
+  };
+};
+const cardLoadDB = () => {
+  return async function (dispatch, getstate, { history }) {
+    const cards = await LoadCardList();
+    dispatch(card_load(cards));
+  };
+};
+const cardAddDB = data => {
+  return async function (dispatch) {
+    const card = await AddCardList(data);
+    console.log(card);
   };
 };
 // Reducer
@@ -178,6 +111,10 @@ export default handleActions(
         });
         draft.cards[card_num].cardDetails[detail_num] = todoText;
       }),
+    [CARDLOAD]: (state, action) =>
+      produce(state, draft => {
+        draft.cards = action.payload.cards;
+      }),
   },
   initialState
 );
@@ -189,6 +126,9 @@ const actionCreators = {
   todoAddDB,
   todoFixDB,
   todoDelectDB,
+  cardLoadDB,
+  card_load,
+  cardAddDB,
 };
 
 export { actionCreators };

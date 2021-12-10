@@ -3,16 +3,19 @@ import styled from "styled-components";
 import Grid from "@mui/material/Grid";
 import CardBox from "../components/CardBox";
 import Header from "../components/Header";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as todoAction } from "../redux/modules/todo";
 import { history } from "../redux/configureStore";
 import { useParams } from "react-router";
 
 const Main = props => {
   //임시 user 정보 후에 jws 정보를 가지고 서버에 요청해 postlist를 가지고 오게 한다.
-
+  const dispatch = useDispatch();
   const { id } = useParams();
   const cards = useSelector(state => state.todo.cards);
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    dispatch(todoAction.cardLoadDB());
+  }, []);
   return (
     <MainPage>
       <Header></Header>

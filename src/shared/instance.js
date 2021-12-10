@@ -1,13 +1,16 @@
 import axios from "axios";
 import { getCookie } from "./Cookie";
-const USER_TOKEN = getCookie();
+const USER_TOKEN = getCookie("Authorization");
 
 const instance = axios.create({
-  baseURL: "http:/18.224.37.224/",
+  timeou: 1000,
+  headers: {
+    Authorization: USER_TOKEN,
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json",
+  },
 });
-instance.defaults.timeout = 1000;
-instance.defaults.headers.common["Authorization"] = USER_TOKEN;
-
+instance.defaults.baseURL = "http://15.164.215.165";
 instance.interceptors.request.use(
   config => {
     return config;
