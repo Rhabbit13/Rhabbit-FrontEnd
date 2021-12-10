@@ -44,22 +44,23 @@ const loginDB = (username, password) => {
   };
 };
 
-const signupDB = (username, password, nickname) => {
+const signupDB = (username, nickname, password) => {
   return function (dispatch, getState, { history }) {
     axios
       .post("http://15.164.215.165/user/signup", {
-        nickname: nickname,
         username: username,
+        nickname: nickname,
         password: password,
       })
       .then(response => {
         dispatch(
           setUser({
-            nickname: nickname,
             username: username,
+            nickname: nickname,
             password: password,
           })
         );
+
         history.push("/login");
       })
       .catch(error => {

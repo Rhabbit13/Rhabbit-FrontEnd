@@ -39,8 +39,9 @@ const Signup = (props) => {
     if (pwd !== pwdCheck) {
       return alert("비밀번호를 확인하세요.");
     }
-  };
   dispatch(userActions.signupDB(id, pwd, userName));
+  };
+  
 
   return (
     <React.Fragment>
@@ -110,9 +111,9 @@ const Signup = (props) => {
               variant="contained"
               disableElevation
               color="error"
-              onClick={() => {
-                signup();
-              }}>
+              onClick={
+                signup
+              }>
               회원 가입하기
             </Button>
           </Wrap>
