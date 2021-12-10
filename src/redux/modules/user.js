@@ -83,10 +83,13 @@ const signupDB = (username, nickname, password) => {
 export default handleActions(
   {
     [LOG_IN]: (state, action) =>
-      produce(state, draft => {
+       produce(state, (draft) => {
+
+ 
         draft.token = action.payload.user.token;
         draft.is_login = action.payload.user.is_login;
-      }),
+        draft.username = action.payload.user.is_login;
+       }),
 
     [LOG_OUT]: (state, action) =>
       produce(state, draft => {

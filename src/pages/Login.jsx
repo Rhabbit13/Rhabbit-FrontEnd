@@ -50,7 +50,7 @@ const Login = (props) => {
             alignItems: "center",
             padding: "20px",
           }}>
-          <Success>SUCCESS</Success>
+          <Success>SUCCESS!!</Success>
           <Wrap>
             <img src="/static/habbit.png" alt="로고" />
 
@@ -141,7 +141,7 @@ const Success = styled.p`
   font-family: "jua", sans-serif;
   color: darkblue;
   position: absolute;
-  top: 20px;
+  top: 65px;
   left: 360px;
   animation: ${boxFade} 1s 1s infinite linear alternate;
   margin-right: 20px;

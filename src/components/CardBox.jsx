@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
-const CardBox = props => {
+const CardBox = (props) => {
   const dispatch = useDispatch();
   const { data } = props;
 
@@ -21,13 +21,35 @@ const CardBox = props => {
   let rate = Math.round((count / data.cardsDetailDtos.length) * 100);
 
   return (
-    <Card
-      sx={{ minWidth: "50%" }}
-      style={{ border: "1px solid #eee", cursor: "pointer" }}
+    <Box
+      sx={{
+        boxShadow: "8px 8px 5px #999999",
+        bgcolor: "#EEE",
+        borderRadius: "10px",
+        width: "100%",
+        height: 250,
+        backgroundColor: "#F57053",
+        "&:hover": {
+          backgroundColor: "#DE4640",
+          opacity: [0.9, 0.8, 0.7],
+          transform: "scale(1.05)",
+          cursor: "pointer",
+        },
+      }}
+
+      // sx={{ minWidth: "50%" }}
+      // style={{ border: "1px solid #eee", cursor: "pointer" }}
     >
-      <CardContent sx={{ padding: "16px 20px !important", height: "120px" }}>
+      <CardContent
+        sx={{
+          padding: "16px 20px !important",
+          height: "120px",
+        }}>
         <FlexBox>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          <Typography
+            sx={{ fontSize: 14, color: "white" }}
+            color="text.secondary"
+            gutterBottom>
             {data.date}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -35,16 +57,25 @@ const CardBox = props => {
           </Typography>
         </FlexBox>
         <Typography
-          style={{ marginBottom: "6px" }}
+          style={{
+            marginBottom: "6px",
+            color: "white",
+            fontWeight: "200",
+          }}
           variant="h5"
-          component="div"
-        >
+          component="div">
           {rate} %
         </Typography>
         <OverFlow>
           {data.cardsDetailDtos.map((item, index) => {
             return (
-              <Typography key={index} variant="body2">
+              <Typography
+                key={index}
+                variant="body2"
+                style={{
+                  color: "white",
+                  fontWeight: "200",
+                }}>
                 {item.text}
               </Typography>
             );
@@ -52,7 +83,7 @@ const CardBox = props => {
         </OverFlow>
         ...
       </CardContent>
-    </Card>
+    </Box>
   );
 };
 const FlexBox = styled.div`

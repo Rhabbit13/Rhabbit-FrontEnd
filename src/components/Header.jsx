@@ -21,11 +21,13 @@ const Header = props => {
         backgroundColor: "#eee",
         width: "100%",
         marginBottom: "50px",
-      }}
-    >
+      }}>
       <AppBar position="static" style={{ background: "#eee", color: "#000" }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, color: "#DE4640", fontWeight: "bold" }}>
             Rhabbit
           </Typography>
           {isLogin() ? (
@@ -35,16 +37,14 @@ const Header = props => {
                 history.push("/login");
                 window.location.reload();
                 dispatch(userActions.logOut());
-              }}
-            >
+              }}>
               Logout{" "}
             </Button>
           ) : (
             <Button
               onClick={() => {
                 history.push("/login");
-              }}
-            >
+              }}>
               Login
             </Button>
           )}

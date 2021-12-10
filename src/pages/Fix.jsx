@@ -28,8 +28,7 @@ const FixPage = () => {
         width: "100%",
       }}
       rowSpacing={3}
-      columnSpacing={{ xs: 2, sm: 2, md: 3 }}
-    >
+      columnSpacing={{ xs: 2, sm: 2, md: 3 }}>
       <Header></Header>
       <Level>
         <Percentage>{percentage}%</Percentage>
@@ -48,12 +47,10 @@ const FixPage = () => {
           padding: "20px",
           bottom: "10px",
           boxSizing: "border-box",
-        }}
-      >
+        }}>
         <Button
           variant="contained"
-          style={{ width: "50%", backgroundColor: "#999", height: "40px" }}
-        >
+          style={{ width: "50%", backgroundColor: "#999", height: "40px" }}>
           수정하기
         </Button>
         <Button
@@ -61,14 +58,13 @@ const FixPage = () => {
           style={{
             width: "50%",
             backgroundColor: "#eee",
-            color: "#999",
+            color: "red",
             height: "40px",
           }}
           onClick={() => {
             history.goBack();
-          }}
-        >
-          뒤로 돌아가기
+          }}>
+           뒤로 돌아가기  
         </Button>
       </Stack>
     </Grid>

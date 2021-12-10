@@ -12,7 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { useParams } from "react-router";
 
-const Edit = props => {
+const Edit = (props) => {
   const { disabled, data, pid } = props;
   const dispatch = useDispatch();
   const [selected, setSelected] = React.useState(false);
@@ -20,11 +20,11 @@ const Edit = props => {
   const [checked, setChecked] = React.useState(data.checked);
   const [typing, setTyping] = React.useState(data.text);
   const textRef = React.useRef("");
-  const DelectBtn = e => {
+  const DelectBtn = (e) => {
     dispatch(todoAction.todo_delect(data.id, pid));
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setChecked(!checked);
     const todoText = {
       id: data.id,
@@ -34,7 +34,7 @@ const Edit = props => {
     };
     dispatch(todoAction.todo_fix(pid, todoText));
   };
-  const DailyChange = e => {
+  const DailyChange = (e) => {
     const todoText = {
       id: data.id,
       text: data.text,
@@ -43,7 +43,7 @@ const Edit = props => {
     };
     dispatch(todoAction.todo_fix(pid, todoText));
   };
-  const ChangeText = e => {
+  const ChangeText = (e) => {
     const todoText = {
       id: data.id,
       text: textRef.current.value,
@@ -56,8 +56,8 @@ const Edit = props => {
       console.log("응 아니야");
     }
   };
-  const sxx = { "& .MuiSvgIcon-root": { fontSize: 25 } };
-  const ChangeEvent = e => {
+  const sxx = { "& .MuiSvgIcon-root": { fontSize: 25, color: "#DE4640" } };
+  const ChangeEvent = (e) => {
     setTyping(e.target.value);
   };
   return (
@@ -66,7 +66,7 @@ const Edit = props => {
         <ToggleButton
           disabled={disabled}
           color="error"
-          style={{ border: "0px", backgroundColor: "#fff" }}
+          style={{ border: "0px", backgroundColor: "#fff", color: "#DE4640" }}
           sx={sxx}
           value="check"
           size="small"
@@ -74,34 +74,31 @@ const Edit = props => {
           onChange={() => {
             setFixed(!fixed);
             ChangeText();
-          }}
-        >
+          }}>
           <AutoFixHighIcon />
         </ToggleButton>
         <ToggleButton
           disabled={disabled}
           color="error"
-          style={{ border: "0px", backgroundColor: "#fff" }}
+          style={{ border: "0px", backgroundColor: "#fff", color: "#DE4640" }}
           sx={sxx}
           size="small"
           value="check"
           selected={data.daily}
-          onChange={async e => {
+          onChange={async (e) => {
             setSelected(!selected);
             DailyChange(e);
-          }}
-        >
+          }}>
           <BookmarkAddedIcon />
         </ToggleButton>
         <IconButton
           disabled={disabled}
-          style={{ border: "0px", backgroundColor: "#fff" }}
+          style={{ border: "0px", backgroundColor: "#fff", color: "#DE4640" }}
           sx={sxx}
           size="small"
           onClick={() => {
             DelectBtn();
-          }}
-        >
+          }}>
           <CloseIcon />
         </IconButton>
       </FelxBox>
@@ -109,6 +106,7 @@ const Edit = props => {
         inputRef={textRef}
         disabled={!fixed}
         style={{
+          color: "#DE4640",
           width: "90%",
         }}
         label="할일"
@@ -123,7 +121,7 @@ const Edit = props => {
         onChange={handleChange}
         inputProps={{ "aria-label": "controlled" }}
         color="error"
-        sx={{ "& .MuiSvgIcon-root": { fontSize: 35 } }}
+        sx={{ "& .MuiSvgIcon-root": { fontSize: 35, color: "#DE4640" } }}
         disabled={disabled}
       />
     </EditBox>

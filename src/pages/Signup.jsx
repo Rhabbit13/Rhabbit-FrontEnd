@@ -89,6 +89,7 @@ const Signup = (props) => {
             />
             <TextField
               required
+              type="password"
               id="outlined-required"
               label="비빌번호  "
               onChange={(e) => {
@@ -111,9 +112,7 @@ const Signup = (props) => {
               variant="contained"
               disableElevation
               color="error"
-              onClick={
-                signup
-              }>
+              onClick={signup}>
               회원 가입하기
             </Button>
           </Wrap>
