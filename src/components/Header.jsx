@@ -9,14 +9,11 @@ import { useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { actionCreators as userActions } from "../redux/modules/user";
-
-
- 
+import { getCookie } from "../shared/Cookie";
 
 const Header = props => {
-
-  const history = useHistory()
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const dispatch = useDispatch();
   return (
     <Box
       sx={{
@@ -31,12 +28,25 @@ const Header = props => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Rhabbit
           </Typography>
-          <Button  onClick={()=>{
-            deleteCookie("Authorization");
-            history.push('/login') 
-            dispatch(userActions.logOut("Authorization"));
-            }}>
-          Logout </Button> 
+          {getCookie("Authorization") ? (
+            <Button
+              onClick={() => {
+                deleteCookie("Authorization");
+                history.push("/login");
+                dispatch(userActions.logOut());
+              }}
+            >
+              Logout{" "}
+            </Button>
+          ) : (
+            <Button
+              onClick={() => {
+                history.push("/login");
+              }}
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
