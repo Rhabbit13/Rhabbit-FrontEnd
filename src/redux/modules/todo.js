@@ -1,159 +1,194 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import {
+  PostAddTodoList,
+  PutFixTodoList,
+  DelectTodoList,
+} from "../../shared/todocard";
 
 // Actions
-const TODOCHECK = "TODOCHECK";
-const TODODEILY = "TODODEILY";
+const TODOADD = "TODOADD";
 const TODODELECT = "TODODELECT";
 const TODOFIX = "TODOFIX";
 
 const initialState = {
-  user: { id: "asq12q@1Was3ddas", nickname: "올루션", achievementrate: 30 },
-  post: [
+  user: {
+    id: "asq12q@1Was3ddas",
+    username: "cwed222",
+    nickname: "올루션",
+    achievementrate: 30,
+  },
+  cards: [
     {
-      id: "hjk234fghnmwasdefsdqw",
-      uid: "asq12q@1Was3ddas",
-      date: "1207",
-      rate: 90,
+      id: "asq11hhhjfgwafvcb@3345s",
+      user: {
+        id: "asq12q@1Was3ddas",
+        username: "username",
+        nickname: "nickname",
+        password:
+          "$2a$10$m9Ip/m4/OrhNrbLragyZl.EjITANGCCetrt8ERIw/ZWoP6HdASRyq",
+      },
+      cardDetails: [
+        {
+          id: "1122q@1Was113333Ue3dd",
+          text: "10시 기상",
+          checked: false,
+          daily: true,
+        },
+        {
+          id: "12q@144Ue3dd",
+          text: "13시 자장가",
+          checked: false,
+          daily: true,
+        },
+        {
+          id: "12q@4aas",
+          text: "12시 사자",
+          checked: false,
+          daily: true,
+        },
+        {
+          id: "12q@13hh55Ue73dd",
+          text: "15시 짜장면",
+          checked: true,
+          daily: false,
+        },
+        {
+          id: "12q@1Wa333s113333Ue3dd",
+          text: "11시 고양이",
+          checked: true,
+          daily: false,
+        },
+      ],
+      date: "20211209",
     },
     {
-      id: "hj4fgn33dacefdqw",
-      uid: "asq12q@1Was3ddas",
-      date: "1206",
-      rate: 80,
-    },
-    {
-      id: "hj4fgn33dacefdqw",
-      uid: "asq12q@1Was3ddas",
-      date: "1208",
-      rate: 80,
+      id: "asq11hhssssshjfgwafvcb@3345s",
+      user: {
+        id: "asq12q@1Was3ddas",
+        username: "username",
+        nickname: "nickname",
+        password:
+          "$2a$10$m9Ip/m4/OrhNrbLragyZl.EjITANGCCetrt8ERIw/ZWoP6HdASRyq",
+      },
+      cardDetails: [
+        {
+          id: "s3Ue3dd",
+          text: "10시 기상",
+          checked: false,
+          daily: true,
+        },
+        {
+          id: "12q@13hhe73dd",
+          text: "15시 짜장면",
+          checked: true,
+          daily: false,
+        },
+        {
+          id: "d3333Ue3dd",
+          text: "11시 고양이",
+          checked: false,
+          daily: false,
+        },
+        {
+          id: "1fassss1s",
+          text: "12시 사자",
+          checked: false,
+          daily: false,
+        },
+        {
+          id: "12q@gUe3dd",
+          text: "13시 자장가",
+          checked: false,
+          daily: false,
+        },
+      ],
+      date: "20211208",
     },
   ],
-  todo: [
-    {
-      pid: "hjk234fghnmwasdefsdqw",
-      id: "1122q@1Was113333Ue3dd",
-      text: "10시 기상",
-      checked: false,
-      daily: true,
-    },
-    {
-      pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@1Wa333s113333Ue3dd",
-      text: "11시 고양이",
-      checked: false,
-      daily: false,
-    },
-    {
-      pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@4aas",
-      text: "12시 사자",
-      checked: false,
-      daily: false,
-    },
-    {
-      pid: "hjk234fghnmwasdefsdqw",
-      id: "12q@144Ue3dd",
-      text: "13시 자장가",
-      checked: false,
-      daily: false,
-    },
-
-    {
-      pid: "hj4fgn33dacefdqw",
-      id: "12q@13hh55Ue73dd",
-      text: "15시 짜장면",
-      checked: true,
-      daily: false,
-    },
-    {
-      pid: "hj4fgn33dacefdqw",
-      id: "13313hhh3Ue3d5d",
-      text: "14시 짬뽕",
-      checked: true,
-      daily: false,
-    },
-    {
-      pid: "hjk234fghnmwasdefsdqw",
-      id: "11111tttttsssdd",
-      text: "12시 탕수육",
-      checked: true,
-      daily: false,
-    },
-    {
-      pid: "hj4fgn33dacefdqw",
-      id: "122iii13ooohhh3Ue3dd",
-      text: "22시 떡복이",
-      checked: true,
-      daily: false,
-    },
-  ],
-  is_login: false,
 };
 
 // Action Creators
-const todo_check = createAction(TODOCHECK, (id, checked) => ({
+
+const todo_delect = createAction(TODODELECT, (id, pid) => ({
   id,
-  checked,
+  pid,
 }));
-const todo_deily = createAction(TODODEILY, (id, daily) => ({
-  id,
-  daily,
+const todo_fix = createAction(TODOFIX, (pid, todoText) => ({
+  pid,
+  todoText,
 }));
-const todo_delect = createAction(TODODELECT, id => ({
-  id,
-}));
-const todo_fix = createAction(TODOFIX, (id, text) => ({
-  id,
-  text,
+const todo_add = createAction(TODOADD, (pid, todoText) => ({
+  todoText,
+  pid,
 }));
 
+//미들웨이
+const todoAddDB = (pid, todoText) => {
+  return function (dispatch, getstate, { history }) {
+    // const addTodoData = PostAddTodoList(pid, todoText);
+    const addTodoData = Math.random().toString(36).substr(2, 16);
+    const newtodo = { ...todoText, id: addTodoData };
+    console.log(newtodo);
+    dispatch(todo_add(pid, newtodo));
+  };
+};
+
+const todoFixDB = (pid, todoText) => {
+  return function (dispatch, getstate, { history }) {
+    const FixTodoData = PutFixTodoList(pid, todoText);
+    dispatch(todo_fix(pid, todoText));
+  };
+};
+const todoDelectDB = (cardId, textId) => {
+  return function (dispatch, getstate, { history }) {
+    DelectTodoList(cardId, textId);
+    dispatch(todo_delect(cardId, textId));
+  };
+};
 // Reducer
 export default handleActions(
   {
-    [TODOCHECK]: (state, action) =>
-      produce(state, draft => {
-        const { id, checked } = action.payload;
-        const is_todo_num = state.todo.findIndex(x => {
-          return x.id === id ? true : false;
-        });
-        draft.todo[is_todo_num].checked = checked;
-      }),
-    [TODODEILY]: (state, action) =>
-      produce(state, draft => {
-        const { id, daily } = action.payload;
-        const is_todo_nums = state.todo.findIndex(x => {
-          return x.id === id ? true : false;
-        });
-        draft.todo[is_todo_nums].daily = daily;
-      }),
     [TODODELECT]: (state, action) =>
       produce(state, draft => {
-        const { id } = action.payload;
-        console.log(id);
-        const newTodo = state.todo.filter(x => {
-          return x.id !== id;
+        const { id, pid } = action.payload;
+        const num = draft.cards.findIndex(y => y.id === pid);
+        const index = draft.cards[num].cardDetails.findIndex(x => x.id === id);
+        console.log(index);
+        console.log(state);
+        draft.cards[num].cardDetails.splice(index, 1);
+      }),
+    [TODOADD]: (state, action) =>
+      produce(state, draft => {
+        const { pid, todoText } = action.payload;
+        console.log(pid, todoText);
+        const card_num = state.cards.findIndex(x => {
+          return x.id === pid;
         });
-        draft.todo = newTodo;
+        draft.cards[card_num].cardDetails.push(todoText);
       }),
     [TODOFIX]: (state, action) =>
       produce(state, draft => {
-        const { id, text } = action.payload;
-        console.log(id, text);
-        const is_todo_nums = state.todo.findIndex(x => {
-          return x.id === id ? true : false;
+        const { pid, todoText } = action.payload;
+        const card_num = state.cards.findIndex(x => {
+          return x.id === pid;
         });
-        draft.todo[is_todo_nums].text = text;
+        const detail_num = state.cards[card_num].cardDetails.findIndex(x => {
+          return x.id === todoText.id;
+        });
+        draft.cards[card_num].cardDetails[detail_num] = todoText;
       }),
   },
   initialState
 );
 
 const actionCreators = {
-  todo_check,
-  todo_deily,
   todo_delect,
   todo_fix,
+  todo_add,
+  todoAddDB,
+  todoFixDB,
+  todoDelectDB,
 };
 
 export { actionCreators };

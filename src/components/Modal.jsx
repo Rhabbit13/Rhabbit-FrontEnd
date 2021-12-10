@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import { useDispatch } from "react-redux";
+import { actionCreators as todoAction } from "../redux/modules/todo";
 
 const style = {
   position: "absolute",
@@ -16,17 +19,27 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const dispatch = useDispatch();
+  const Tref = React.useRef("");
+  const AddList = () => {
+    const todoText = {
+      text: Tref.current.value,
+      checked: false,
+      daily: false,
+    };
+    dispatch(todoAction.todoAddDB(props.pid, todoText));
+  };
   return (
     <>
       <Button
         variant="contained"
         style={{ width: "50%", backgroundColor: "#999", height: "40px" }}
         onClick={handleOpen}
+        disabled={props.disabled}
       >
         Todo 추가
       </Button>
@@ -38,11 +51,22 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            루틴리스트를 추가해 주세요
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <TextField
+            style={{
+              width: "100%",
+              marginTop: "10px",
+            }}
+            label="할일"
+            variant="outlined"
+            size="Nomall"
+            color="error"
+            inputRef={Tref}
+          />
+          <Button color="error" onClick={AddList}>
+            추가하기
+          </Button>
         </Box>
       </Modal>
     </>

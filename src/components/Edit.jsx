@@ -10,34 +10,56 @@ import { useDispatch } from "react-redux";
 import { actionCreators as todoAction } from "../redux/modules/todo";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import { useParams } from "react-router";
 
 const Edit = props => {
-  const { disabled, data } = props;
+  const { disabled, data, pid } = props;
   const dispatch = useDispatch();
   const [selected, setSelected] = React.useState(false);
   const [fixed, setFixed] = React.useState(false);
   const [checked, setChecked] = React.useState(data.checked);
+  const [typing, setTyping] = React.useState(data.text);
   const textRef = React.useRef("");
-
   const DelectBtn = e => {
-    dispatch(todoAction.todo_delect(data.id));
+    dispatch(todoAction.todo_delect(data.id, pid));
   };
 
   const handleChange = event => {
     setChecked(!checked);
-    dispatch(todoAction.todo_check(data.id, !checked));
+    const todoText = {
+      id: data.id,
+      text: data.text,
+      checked: !checked,
+      daily: data.daily,
+    };
+    dispatch(todoAction.todo_fix(pid, todoText));
   };
   const DailyChange = e => {
-    dispatch(todoAction.todo_deily(data.id, !selected));
+    const todoText = {
+      id: data.id,
+      text: data.text,
+      checked: data.checked,
+      daily: !selected,
+    };
+    dispatch(todoAction.todo_fix(pid, todoText));
   };
   const ChangeText = e => {
+    const todoText = {
+      id: data.id,
+      text: textRef.current.value,
+      checked: data.checked,
+      daily: data.daily,
+    };
     if (fixed !== false && textRef.current.value) {
-      dispatch(todoAction.todo_fix(data.id, textRef.current.value));
+      dispatch(todoAction.todo_fix(pid, todoText));
     } else {
       console.log("응 아니야");
     }
   };
   const sxx = { "& .MuiSvgIcon-root": { fontSize: 25 } };
+  const ChangeEvent = e => {
+    setTyping(e.target.value);
+  };
   return (
     <EditBox>
       <FelxBox>
@@ -65,8 +87,8 @@ const Edit = props => {
           value="check"
           selected={data.daily}
           onChange={async e => {
-            DailyChange(e);
             setSelected(!selected);
+            DailyChange(e);
           }}
         >
           <BookmarkAddedIcon />
@@ -93,7 +115,8 @@ const Edit = props => {
         variant="outlined"
         size="Nomall"
         color="error"
-        defaultValue={data.text}
+        value={typing}
+        onChange={ChangeEvent}
       />
       <Checkbox
         checked={checked}
