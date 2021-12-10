@@ -15,8 +15,7 @@ const Login = (props) => {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
 
-  console.log(id, pwd);
-
+ 
   const changeId = (e) => {
     setId(e.target.value);
   };

@@ -44,20 +44,26 @@ const user_initial = {
 
 const loginDB = (username, password) => {
   return function (dispatch, getState, { history }) {
+         
+
     axios
       .post("http://15.164.215.165/user/login ", {
         username: username,
         password: password,
       })
       .then((response) => {
-        console.log(response);
+        console.log(response)
         dispatch(
           logIn({
-            token: response.data.token,
+            token: response.headers.authorization,
             is_login: true,
           })
         );
-        setCookie("token", JSON.stringify(response.data.token));
+        setCookie('Authorization', response.headers.authorization);
+        console.log(
+           
+          response.headers.authorization
+        );
         history.push("/main");
       })
       .catch((error) => {
@@ -89,6 +95,7 @@ const signupDB = (username, nickname, password) => {
         history.push("/login");
       })
       .catch((error) => {
+        alert("사용 중인 이메일입니다.");
         console.log("회원가입 DB ERROR", error);
       });
   };
@@ -104,7 +111,7 @@ export default handleActions(
 
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        deleteCookie("is_login");
+        deleteCookie("Authorization");
         draft.user = null;
         draft.is_login = false;
       }),

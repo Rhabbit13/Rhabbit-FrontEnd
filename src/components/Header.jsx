@@ -5,15 +5,18 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { deleteCookie } from "../shared/Cookie";
 import { useHistory } from "react-router";
-
+import { useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { actionCreators as userActions } from "../redux/modules/user";
+
 
  
 
 const Header = props => {
 
   const history = useHistory()
+  const dispatch = useDispatch()
   return (
     <Box
       sx={{
@@ -29,8 +32,9 @@ const Header = props => {
             Rhabbit
           </Typography>
           <Button  onClick={()=>{
-            deleteCookie('login')
+            deleteCookie("Authorization");
             history.push('/login') 
+            dispatch(userActions.logOut("Authorization"));
             }}>
           Logout </Button> 
         </Toolbar>
