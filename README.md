@@ -18,6 +18,8 @@
 ![image](https://user-images.githubusercontent.com/86106738/145660434-1f838d4d-4eb6-4fe9-aeda-64cf4f4b377b.png)
 
 
+## API 설계
+https://decisive-hair-df6.notion.site/13-Daily-Check-API-82f79fb3e20f4a41b62263950f998823
 
  
  
