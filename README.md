@@ -1,4 +1,5 @@
-# RHABBIT 습관을 관리하여 성공하기
+# RHABBIT 
+> #### 습관을 관리하여 성공하기
  #### 매일 매일 할 일들을 토끼처럼 빠르게 해치우자!!
  #### 어제의 나를 이긴 나. 좀 멋있을 지도??
 ![image](https://user-images.githubusercontent.com/86106738/145660992-f16d2291-ab07-43f0-906c-540b4aae604e.png)
