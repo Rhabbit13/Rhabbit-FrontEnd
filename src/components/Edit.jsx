@@ -32,7 +32,7 @@ const Edit = props => {
       checked: !checked,
       daily: data.daily,
     };
-    dispatch(todoAction.todoFixDB(pid, todoText));
+    dispatch(todoAction.todoFixDB(Number(pid), todoText));
   };
   const DailyChange = e => {
     const todoText = {
@@ -41,7 +41,7 @@ const Edit = props => {
       checked: data.checked,
       daily: !selected,
     };
-    dispatch(todoAction.todoFixDB(pid, todoText));
+    dispatch(todoAction.todoFixDB(Number(pid), todoText));
   };
   const ChangeText = e => {
     const todoText = {
@@ -51,7 +51,7 @@ const Edit = props => {
       daily: data.daily,
     };
     if (fixed !== false && textRef.current.value) {
-      dispatch(todoAction.todoFixDB(pid, todoText));
+      dispatch(todoAction.todoFixDB(Number(pid), todoText));
     } else {
       console.log("응 아니야");
     }
