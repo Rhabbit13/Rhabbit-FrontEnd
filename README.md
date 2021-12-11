@@ -2,8 +2,9 @@
 > #### 습관을 관리하여 성공하기
 > #### 매일 매일 할 일들을 토끼처럼 빠르게 해치우자!!
 > #### 어제의 나를 이긴 나. 좀 멋있을 지도??
-![image](https://user-images.githubusercontent.com/86106738/145660992-f16d2291-ab07-43f0-906c-540b4aae604e.png)
-## RHABBIT 소개하기
+ ![image](https://user-images.githubusercontent.com/86106738/145669369-832292c5-52c5-4749-b3e2-601447298475.png)
+
+ ## RHABBIT 소개하기
 #### 매일 습관처럼 해야하는 중요한 일들을 체크하여 
 #### 성취율을 확인하며 관리하세요
 > ####  시연영상: https://youtu.be/N6L34DR2AVY
