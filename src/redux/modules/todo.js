@@ -83,7 +83,7 @@ export default handleActions(
         const { id, pid } = action.payload;
         const num = draft.cards.findIndex(y => y.id === pid);
         const index = draft.cards[num].cardsDetailDtos.findIndex(
-          x => x.id === id
+          x => x.textId === id
         );
         console.log(index);
         console.log(state);
@@ -94,7 +94,7 @@ export default handleActions(
         const { pid, todoText } = action.payload;
         console.log(pid, todoText);
         const card_num = state.cards.findIndex(x => {
-          return x.id === pid;
+          return x.cardsId === pid;
         });
         draft.cards[card_num].cardsDetailDtos.push(todoText);
       }),
@@ -102,11 +102,11 @@ export default handleActions(
       produce(state, draft => {
         const { pid, todoText } = action.payload;
         const card_num = state.cards.findIndex(x => {
-          return x.id === pid;
+          return x.cardsId === pid;
         });
         const detail_num = state.cards[card_num].cardsDetailDtos.findIndex(
           x => {
-            return x.id === todoText.id;
+            return x.textId === todoText.textId;
           }
         );
         draft.cards[card_num].cardsDetailDtos[detail_num] = todoText;
