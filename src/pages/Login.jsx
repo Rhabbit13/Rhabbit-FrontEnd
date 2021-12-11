@@ -34,70 +34,74 @@ const Login = props => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="70%">
-        <Box
-          sx={{
-            boxShadow: "8px 8px 5px #999999",
-            bgcolor: "#EEE",
-            width: "100%",
-            margin: " 30px",
-            height: "auto",
-            borderRadius: "10px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "20px",
-          }}
-        >
-          <Success>SUCCESS!!</Success>
-          <Wrap>
-            <img src="/static/habbit.png" alt="로고" />
 
-            <Title>로그인</Title>
+      <Box
+        sx={{
+          boxShadow: "8px 8px 5px #999999",
+          bgcolor: "#EEE",
+          width: "100%",
+          margin: "auto",
+          height: "auto",
+          borderRadius: "10px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "40px 20px",
+          boxSizing: "border-box",
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <Success>SUCCESS!!</Success>
+        <Wrap>
+          <img src="/static/habbit.png" alt="로고" />
 
-            <TextField
-              value={id}
-              required
-              id="outlined-required"
-              label="E-mail"
-              onChange={e => changeId(e)}
-            />
-            <TextField
-              value={pwd}
-              required
-              type="password"
-              id="outlined-required"
-              label="PASSWORD"
-              onChange={e => changePwd(e)}
-            />
-            <div>
-              <Button
-                variant="contained"
-                disableElevation
-                sx={{ width: "100%", marginBottom: "10px" }}
-                color="error"
-                onClick={() => {
-                  login();
-                }}
-              >
-                LOG IN
-              </Button>
-              <Button
-                variant="contained"
-                sx={{ width: "100%" }}
-                disableElevation
-                color="error"
-                onClick={() => {
-                  history.push("/signup");
-                }}
-              >
-                Sign Up
-              </Button>
-            </div>
-          </Wrap>
-        </Box>
-      </Container>
+          <Title>로그인</Title>
+
+          <TextField
+            value={id}
+            required
+            id="outlined-required"
+            label="E-mail"
+            onChange={e => changeId(e)}
+          />
+          <TextField
+            value={pwd}
+            required
+            type="password"
+            id="outlined-required"
+            label="PASSWORD"
+            onChange={e => changePwd(e)}
+          />
+          <div>
+            <Button
+              variant="contained"
+              disableElevation
+              sx={{ width: "100%", marginBottom: "10px" }}
+              color="error"
+              onClick={() => {
+                login();
+              }}
+            >
+              LOG IN
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ width: "100%" }}
+              disableElevation
+              color="error"
+              onClick={() => {
+                history.push("/signup");
+              }}
+            >
+              Sign Up
+            </Button>
+          </div>
+        </Wrap>
+      </Box>
     </React.Fragment>
   );
 };

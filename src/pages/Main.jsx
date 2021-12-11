@@ -7,20 +7,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as todoAction } from "../redux/modules/todo";
 import { history } from "../redux/configureStore";
 import { useParams } from "react-router";
+import moment from "moment";
 
 const Main = props => {
   //임시 user 정보 후에 jws 정보를 가지고 서버에 요청해 postlist를 가지고 오게 한다.
   const dispatch = useDispatch();
   const { id } = useParams();
   const cards = useSelector(state => state.todo.cards);
+  const today = moment().format("YYYYMMDD");
+
+  let start = cards.find(x => {
+    return x.date.includes(today);
+  });
+
+  console.log(start);
 
   React.useEffect(() => {
-    if (cards === []) {
+    if (!start) {
       dispatch(todoAction.cardAddDB());
     }
   }, []);
-
-  React.useEffect(() => {}, []);
 
   return (
     <MainPage>
