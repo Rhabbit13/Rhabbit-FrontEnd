@@ -33,7 +33,7 @@
 
 # 🧑🏻‍💻프론트 팀원소개
 
-> 최주영 : UI/UX 디자인, MainPage, DetailPage 기능 구현
-> 조종훈 : 로그인/회원가입 페이지 
+> #### 최주영 : UI/UX 디자인, MainPage, DetailPage 기능 구현
+> #### 조종훈 : 로그인/회원가입 페이지 
  
  
