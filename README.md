@@ -19,9 +19,9 @@
 
 
 ## API 설계
-https://decisive-hair-df6.notion.site/13-Daily-Check-API-82f79fb3e20f4a41b62263950f998823
-
  
+ [13조_미니프로젝트(Daily_Check)_API_.pdf](https://github.com/Rhabbit13/Rhabbit-FrontEnd/files/7696328/13._.Daily_Check._API_.pdf)
+
  
 # 🖥Front-End 기술스택
 ![image](https://user-images.githubusercontent.com/86106738/145660455-b7a10913-6835-4a63-a451-44576dca2f57.png)
