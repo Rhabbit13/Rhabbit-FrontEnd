@@ -13,15 +13,20 @@ import IconButton from "@mui/material/IconButton";
 import { useParams } from "react-router";
 
 const Edit = props => {
-  const { disabled, data, pid } = props;
+  const { disabled, data, pid, index } = props;
   const dispatch = useDispatch();
   const [selected, setSelected] = React.useState(false);
   const [fixed, setFixed] = React.useState(false);
   const [checked, setChecked] = React.useState(data.checked);
   const [typing, setTyping] = React.useState(data.text);
   const textRef = React.useRef("");
+  console.log(index);
   const DelectBtn = e => {
-    dispatch(todoAction.todoDelectDB(Number(pid), data.textId));
+    if (index !== 1) {
+      dispatch(todoAction.todoDelectDB(data.textId, Number(pid)));
+    } else {
+      alert("한개 이하로 내리면 안됩니다.");
+    }
   };
 
   const handleChange = event => {
@@ -56,7 +61,7 @@ const Edit = props => {
       console.log("응 아니야");
     }
   };
-  const sxx = { "& .MuiSvgIcon-root": { fontSize: 25, color: "#DE4640" } };
+  const sxx = { "& .MuiSvgIcon-root": { fontSize: 25 } };
   const ChangeEvent = e => {
     setTyping(e.target.value);
   };
@@ -66,7 +71,7 @@ const Edit = props => {
         <ToggleButton
           disabled={disabled}
           color="error"
-          style={{ border: "0px", backgroundColor: "#fff", color: "#DE4640" }}
+          style={{ border: "0px", backgroundColor: "#fff" }}
           sx={sxx}
           value="check"
           size="small"
@@ -81,7 +86,7 @@ const Edit = props => {
         <ToggleButton
           disabled={disabled}
           color="error"
-          style={{ border: "0px", backgroundColor: "#fff", color: "#DE4640" }}
+          style={{ border: "0px", backgroundColor: "#fff" }}
           sx={sxx}
           size="small"
           value="check"
@@ -95,7 +100,7 @@ const Edit = props => {
         </ToggleButton>
         <IconButton
           disabled={disabled}
-          style={{ border: "0px", backgroundColor: "#fff", color: "#DE4640" }}
+          style={{ border: "0px", backgroundColor: "#fff" }}
           sx={sxx}
           size="small"
           onClick={() => {
@@ -110,9 +115,9 @@ const Edit = props => {
         disabled={!fixed}
         style={{
           color: "#DE4640",
-          width: "90%",
+          width: "89%",
         }}
-        label="할일"
+        label="할수있어요!"
         variant="outlined"
         size="Nomall"
         color="error"
@@ -137,6 +142,7 @@ const EditBox = styled.div`
   margin-bottom: 10px;
   justify-content: space-between;
   flex-wrap: wrap;
+  gap: 5px;
 `;
 const FelxBox = styled.div`
   display: flex;

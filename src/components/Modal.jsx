@@ -24,6 +24,7 @@ export default function BasicModal(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
+  const [text, setText] = React.useState("");
   const Tref = React.useRef("");
   const AddList = () => {
     const todoText = {
@@ -31,8 +32,15 @@ export default function BasicModal(props) {
       checked: false,
       daily: false,
     };
-    dispatch(todoAction.todoAddDB(props.pid, todoText));
+    dispatch(todoAction.todoAddDB(Number(props.pid), todoText));
+    handleClose();
   };
+  const TextControl = e => {
+    if (e.charCode === 13) {
+      AddList();
+    }
+  };
+
   return (
     <>
       <Button
@@ -63,6 +71,7 @@ export default function BasicModal(props) {
             size="Nomall"
             color="error"
             inputRef={Tref}
+            onKeyPress={TextControl}
           />
           <Button color="error" onClick={AddList}>
             추가하기

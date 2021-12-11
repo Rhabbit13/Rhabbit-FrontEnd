@@ -19,12 +19,13 @@ const Main = props => {
   let start = cards.find(x => {
     return x.date.includes(today);
   });
-
-  console.log(start);
-
+  let cardBox = cards.find((x, index) => {
+    return index === 0;
+  });
+  console.log(cardBox);
   React.useEffect(() => {
-    if (!start) {
-      dispatch(todoAction.cardAddDB());
+    if (start === {}) {
+      dispatch(todoAction.cardAddDB(cardBox.cardsId));
     }
   }, []);
 

@@ -69,7 +69,7 @@ const cardLoadDB = () => {
   };
 };
 const cardAddDB = data => {
-  return async function (dispatch) {
+  return async function (dispatch, getstate) {
     const card = await AddCardList(data);
     console.log(card);
     dispatch(card_add(card));
@@ -81,18 +81,15 @@ export default handleActions(
     [TODODELECT]: (state, action) =>
       produce(state, draft => {
         const { id, pid } = action.payload;
-        const num = draft.cards.findIndex(y => y.id === pid);
+        const num = draft.cards.findIndex(y => y.cardsId === pid);
         const index = draft.cards[num].cardsDetailDtos.findIndex(
           x => x.textId === id
         );
-        console.log(index);
-        console.log(state);
         draft.cards[num].cardsDetailDtos.splice(index, 1);
       }),
     [TODOADD]: (state, action) =>
       produce(state, draft => {
         const { pid, todoText } = action.payload;
-        console.log(pid, todoText);
         const card_num = state.cards.findIndex(x => {
           return x.cardsId === pid;
         });

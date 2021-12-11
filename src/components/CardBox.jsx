@@ -12,35 +12,25 @@ import { Rate } from "../shared/Rate";
 const CardBox = props => {
   const dispatch = useDispatch();
   const { data } = props;
-  // const { rate, disabled } = Rate();
-
-  let count = 0;
-  data.cardsDetailDtos.forEach(x => {
-    if (x.checked === true) {
-      count++;
-    }
-  });
-  let rate = Math.round((count / data.cardsDetailDtos.length) * 100);
+  const { rate, disabled } = Rate(data);
 
   return (
     <Box
       sx={{
-        boxShadow: "8px 8px 5px #999999",
+        boxShadow: "8px 8px 5px #eee",
         bgcolor: "#EEE",
         borderRadius: "10px",
         width: "100%",
-        height: 250,
-        backgroundColor: "#F57053",
+        height: 160,
+        backgroundColor: "#fff",
+        border: "1px solid #999",
+        boxSizing: "border-box",
+        color: "#000",
         "&:hover": {
-          backgroundColor: "#DE4640",
-          opacity: [0.9, 0.8, 0.7],
-          transform: "scale(1.05)",
+          backgroundColor: "#eee",
           cursor: "pointer",
         },
       }}
-
-      // sx={{ minWidth: "50%" }}
-      // style={{ border: "1px solid #eee", cursor: "pointer" }}
     >
       <CardContent
         sx={{
@@ -50,7 +40,7 @@ const CardBox = props => {
       >
         <FlexBox>
           <Typography
-            sx={{ fontSize: 14, color: "white" }}
+            sx={{ fontSize: 14, color: "#000" }}
             color="text.secondary"
             gutterBottom
           >
@@ -63,7 +53,7 @@ const CardBox = props => {
         <Typography
           style={{
             marginBottom: "6px",
-            color: "white",
+            color: "#000",
             fontWeight: "200",
           }}
           variant="h5"
@@ -78,7 +68,7 @@ const CardBox = props => {
                 key={index}
                 variant="body2"
                 style={{
-                  color: "white",
+                  color: "#000",
                   fontWeight: "200",
                 }}
               >

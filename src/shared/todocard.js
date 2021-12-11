@@ -27,10 +27,9 @@ export function LoadCardList() {
   });
 }
 
-export function AddCardList(data) {
+export function AddCardList(cardsId) {
   return instance({
     method: "POST",
-    url: "/api/cards",
-    data: data,
+    url: `/api/cards/${cardsId}`,
   });
 }

@@ -1,13 +1,14 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import styled, { keyframes } from "styled-components";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { history } from "../redux/configureStore";
+
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
+import logo2 from "../images/logo2.png";
 import "@fontsource/jua";
 
 const Login = props => {
@@ -33,8 +34,6 @@ const Login = props => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-
       <Box
         sx={{
           boxShadow: "8px 8px 5px #999999",
@@ -55,12 +54,9 @@ const Login = props => {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <Success>SUCCESS!!</Success>
         <Wrap>
-          <img src="/static/habbit.png" alt="로고" />
-
+          <img src={logo2} />
           <Title>로그인</Title>
-
           <TextField
             value={id}
             required
@@ -89,13 +85,13 @@ const Login = props => {
               LOG IN
             </Button>
             <Button
-              variant="contained"
               sx={{ width: "100%" }}
               disableElevation
               color="error"
               onClick={() => {
                 history.push("/signup");
               }}
+              variant="outlined"
             >
               Sign Up
             </Button>

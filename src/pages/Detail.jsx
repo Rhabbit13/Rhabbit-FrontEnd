@@ -14,18 +14,25 @@ import Header from "../components/Header";
 import { history } from "../redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as todoAction } from "../redux/modules/todo";
+import { Rate } from "../shared/Rate";
 
 const Detail = () => {
   const dispatch = useDispatch();
   const { pid } = useParams();
   const cards = useSelector(state => state.todo.cards);
   const cardList = cards ? cards : "";
-
   const isCard = cardList.find(x => {
     return x.cardsId === Number(pid);
   });
-  console.log(isCard);
-
+  const { rate, disabled } = Rate(isCard ? isCard : "");
+  const Bar = styled.div`
+    background-color: #de4640;
+    width: ${rate}%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  `;
   return (
     <Grid
       container
@@ -40,14 +47,21 @@ const Detail = () => {
     >
       <Header></Header>
       <Level>
-        <Percentage>%</Percentage>
+        <Percentage>{rate}%</Percentage>
         <Bar></Bar>
       </Level>
 
       {isCard
         ? isCard.cardsDetailDtos.map((item, index) => {
+            const size = isCard.cardsDetailDtos.length;
             return (
-              <Edit key={index} disabled={false} data={item} pid={pid}></Edit>
+              <Edit
+                key={index}
+                disabled={disabled}
+                data={item}
+                pid={pid}
+                index={size}
+              ></Edit>
             );
           })
         : ""}
@@ -67,19 +81,12 @@ const Detail = () => {
         >
           뒤로 돌아가기
         </Button>
-        <Modal pid={pid} disabled={false}></Modal>
+        <Modal pid={pid} disabled={disabled}></Modal>
       </Stack>
     </Grid>
   );
 };
-const Bar = styled.div`
-  background-color: #de4640;
-  width: %;
-  height: 100%;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-`;
+
 const fiexdBox = {
   width: "600px",
   position: "fixed",
